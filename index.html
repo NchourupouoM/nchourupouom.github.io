@@ -6,52 +6,233 @@
     <title>Portfolio - Nchourupouo Mohamed</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #2563eb; --dark: #1e293b; --light: #f8fafc; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; color: var(--dark); margin: 0; background: var(--light); }
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-        header { text-align: center; padding: 60px 20px; background: white; border-radius: 0 0 20px 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        h1 { margin-bottom: 10px; color: var(--primary); }
-        .role { font-size: 1.2rem; color: #64748b; font-weight: bold; }
-        .social-links { margin-top: 20px; }
-        .social-links a { color: var(--dark); font-size: 1.5rem; margin: 0 10px; transition: color 0.3s; }
-        .social-links a:hover { color: var(--primary); }
+        /* PALETTE DE COULEURS THÈME SOMBRE (DARK MODE) */
+        :root {
+            --bg-body: #0f172a;       /* Fond principal (Bleu nuit profond) */
+            --bg-card: #1e293b;       /* Fond des cartes (Gris bleuté) */
+            --primary: #38bdf8;       /* Couleur accent (Cyan néon pour l'IA) */
+            --primary-hover: #0ea5e9; /* Couleur au survol */
+            --text-main: #f1f5f9;     /* Texte principal (Blanc cassé) */
+            --text-muted: #94a3b8;    /* Texte secondaire (Gris clair) */
+            --border: #334155;        /* Bordures subtiles */
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            margin: 0;
+            background-color: var(--bg-body);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: var(--text-main);
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+        }
+
+        .role {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 15px auto;
+        }
+
+        /* LIENS SOCIAUX */
+        .social-links {
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* SECTIONS GÉNÉRALES */
+        .section {
+            margin: 40px 0;
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            display: inline-block;
+            margin-top: 0;
+            color: var(--text-main);
+        }
+
+        h3 {
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        /* COMPÉTENCES (Badges) */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+        }
+
+        .skill-tag {
+            background: rgba(56, 189, 248, 0.1); /* Fond transparent coloré */
+            color: var(--primary);
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            transition: all 0.2s;
+        }
+
+        .skill-tag:hover {
+            background: var(--primary);
+            color: var(--bg-body);
+            transform: scale(1.05);
+        }
+
+        /* PROJETS */
+        .project-card {
+            background: #152033;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 20px -5px rgba(56, 189, 248, 0.15); /* Lueur cyan */
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+        }
+
+        .project-tech {
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-top: 15px;
+            font-family: monospace; /* Look code */
+        }
+
+        /* TIMELINE (Expériences) */
+        .timeline-item {
+            border-left: 2px solid var(--border);
+            padding-left: 25px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary); /* Effet lumineux */
+        }
+
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
         
-        .section { margin: 50px 0; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        h2 { border-bottom: 2px solid var(--primary); padding-bottom: 10px; display: inline-block; }
-        
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; }
-        .skill-tag { background: #e0f2fe; color: #0369a1; padding: 8px 15px; border-radius: 20px; text-align: center; font-weight: 600; font-size: 0.9rem; }
-        
-        .project-card { border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin-bottom: 20px; transition: transform 0.2s; }
-        .project-card:hover { transform: translateY(-3px); border-color: var(--primary); }
-        .project-tech { font-size: 0.85rem; color: #64748b; margin-top: 10px; }
-        
-        .timeline-item { border-left: 3px solid var(--primary); padding-left: 20px; margin-bottom: 30px; }
-        .timeline-date { font-size: 0.9rem; color: #64748b; }
-        
-        .btn { display: inline-block; background: var(--primary); color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-top: 10px; }
-        .btn:hover { background: #1d4ed8; }
+        .timeline-item p {
+            color: var(--text-muted);
+        }
+
+        /* BOUTONS */
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--bg-body);
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 50px;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--border);
+            margin-top: 50px;
+            padding-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>NCHOURUPOUO MOHAMED</h1>
-        <div class="role">Data Scientist | AI Engineer | Backend Developer</div>
-        <p>Expert en transformation de données et création d'agents IA intelligents.</p>
+        <div class="role">Data Scientist | AI Engineer | Backend</div>
+        <p>Expert en transformation de données et création d'agents IA autonomes.</p>
         <div class="social-links">
-            <a href="https://github.com/NchourupouoM" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/mohamed-nchourupouo-a170262a0/" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:nchourupouom@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/NchourupouoM" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/mohamed-nchourupouo-a170262a0/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:nchourupouom@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
         </div>
-        <a href="https://www.datacamp.com/portfolio/nchourupouom04" target="_blank" class="btn">Voir Portfolio DataCamp</a>
+        <a href="https://www.datacamp.com/portfolio/nchourupouom04" target="_blank" class="btn">
+            <i class="fas fa-certificate"></i> Voir Portfolio DataCamp
+        </a>
     </header>
 
     <div class="container">
         
         <!-- COMPÉTENCES -->
         <section class="section">
-            <h2>Compétences Techniques</h2>
+            <h2><i class="fas fa-code"></i> Stack Technique</h2>
             <div style="margin-top: 20px;">
                 <h3>🤖 Intelligence Artificielle & Data</h3>
                 <div class="skills-grid">
@@ -63,74 +244,85 @@
                     <span class="skill-tag">Power BI</span>
                 </div>
                 
-                <h3>💻 Développement Backend</h3>
-                <div class="skills-grid" style="margin-top: 10px;">
+                <h3 style="margin-top: 25px;">💻 Développement Backend</h3>
+                <div class="skills-grid">
                     <span class="skill-tag">FastAPI</span>
                     <span class="skill-tag">Django</span>
                     <span class="skill-tag">Flask</span>
                     <span class="skill-tag">Git & Scrum</span>
+                    <span class="skill-tag">Docker</span>
                 </div>
             </div>
         </section>
 
-        <!-- PROJETS (À PERSONNALISER) -->
+        <!-- PROJETS -->
         <section class="section">
-            <h2>Projets Réalisés</h2>
+            <h2><i class="fas fa-laptop-code"></i> Projets Réalisés</h2>
             
             <div class="project-card">
                 <h3>🧠 Agents IA Autonomes</h3>
-                <p>Conception et déploiement d'agents IA utilisant LangChain et CrewAI pour l'automatisation de tâches complexes.</p>
-                <div class="project-tech">Stack: Python, OpenAI API, CrewAI, Streamlit</div>
-                <a href="https://github.com/NchourupouoM" class="btn" style="font-size: 0.8rem;">Voir le Code</a>
+                <p>Conception et déploiement d'un système multi-agents utilisant LangChain et CrewAI pour automatiser la recherche et la synthèse d'informations.</p>
+                <div class="project-tech">> Stack: Python, OpenAI API, CrewAI, Streamlit</div>
+                <a href="https://github.com/NchourupouoM" class="btn" style="font-size: 0.8rem; padding: 8px 15px;">Voir le Code</a>
             </div>
 
             <div class="project-card">
-                <h3>📊 Analyse de Données - Hydro-Mekin</h3>
-                <p>Analyse des KPI de performance et création de tableaux de bord interactifs pour le suivi hydrologique.</p>
-                <div class="project-tech">Stack: Power BI, SQL, Python Pandas</div>
+                <h3>📊 Analyse Hydro-Mekin (Dashboard)</h3>
+                <p>Optimisation du suivi hydrologique via l'analyse de données complexes et création de tableaux de bord décisionnels interactifs.</p>
+                <div class="project-tech">> Stack: Power BI, SQL, Python Pandas</div>
             </div>
 
             <div class="project-card">
-                <h3>🌐 API Backend Data Science</h3>
-                <p>Développement d'une API RESTful avec FastAPI intégrant un modèle de Machine Learning pour des prédictions en temps réel.</p>
-                <div class="project-tech">Stack: FastAPI, Docker, PostgreSQL, Scikit-learn</div>
+                <h3>🌐 API Backend & ML Prediction</h3>
+                <p>Développement d'une API RESTful robuste avec FastAPI intégrant un modèle de Machine Learning pour des prédictions en temps réel.</p>
+                <div class="project-tech">> Stack: FastAPI, Docker, PostgreSQL, Scikit-learn</div>
             </div>
         </section>
 
         <!-- EXPÉRIENCE -->
         <section class="section">
-            <h2>Expérience Professionnelle</h2>
+            <h2><i class="fas fa-briefcase"></i> Expérience Professionnelle</h2>
             
             <div class="timeline-item">
                 <h3>Stagiaire AI Engineer</h3>
-                <div class="timeline-date">Innovatech | Yaoundé</div>
-                <p>Développement de solutions d'intelligence artificielle innovantes.</p>
+                <div class="timeline-date">Innovatech | Yaoundé (Actuel)</div>
+                <p>R&D sur des solutions d'intelligence artificielle générative et développement d'agents conversationnels.</p>
             </div>
 
             <div class="timeline-item">
                 <h3>Stagiaire AI Engineer</h3>
-                <div class="timeline-date">BUNEC | Mai 2025 - Sept 2025</div>
-                <p>Contribution aux projets de digitalisation et d'analyse de données d'état civil.</p>
+                <div class="timeline-date">BUNEC | Mai 2025 - Sept 2025 (Prévu)</div>
+                <p>Projet de digitalisation et d'analyse prédictive sur les données d'état civil.</p>
+            </div>
+            
+             <div class="timeline-item">
+                <h3>Enseignant d'Informatique</h3>
+                <div class="timeline-date">Collège Nana Bouba | 2025 - 2026</div>
+                <p>Enseignement des bases de l'algorithmique et de la programmation.</p>
             </div>
 
             <div class="timeline-item">
                 <h3>Stagiaire Data Analyst</h3>
                 <div class="timeline-date">Hydro-Mekin | Juil 2024 - Oct 2024</div>
-                <p>Traitement et visualisation de données énergétiques.</p>
+                <p>Traitement statistique et visualisation de données énergétiques pour l'aide à la décision.</p>
             </div>
         </section>
 
         <!-- FORMATION -->
         <section class="section">
-            <h2>Formation</h2>
-            <ul>
-                <li><strong>Master en IA et Big Data</strong> - Keyce Informatique et IA (2025)</li>
-                <li><strong>Licence en Informatique (Data Science)</strong> - Université de Yaoundé I (2023)</li>
-            </ul>
+            <h2><i class="fas fa-graduation-cap"></i> Formation</h2>
+            <div class="timeline-item" style="border:none; padding-left: 0;">
+                <h3 style="margin-bottom:0;">Master en IA et Big Data</h3>
+                <div class="timeline-date">Keyce Informatique et IA (2024 - 2025)</div>
+            </div>
+            <div class="timeline-item" style="border:none; padding-left: 0;">
+                <h3 style="margin-bottom:0;">Licence en Informatique (Data Science)</h3>
+                <div class="timeline-date">Université de Yaoundé I (2022 - 2023)</div>
+            </div>
         </section>
         
-        <footer style="text-align: center; font-size: 0.8rem; color: #94a3b8; margin-top: 50px;">
-            <p>&copy; 2025 Nchourupouo Mohamed. Hébergé sur GitHub Pages.</p>
+        <footer>
+            <p>&copy; 2025 Nchourupouo Mohamed. <br>Designé pour GitHub Pages.</p>
         </footer>
     </div>
 </body>
