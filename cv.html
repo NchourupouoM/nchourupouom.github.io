@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV & Parcours - Mohamed N.</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Style spécifique pour les certifications (petites cartes) */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .cert-item {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--border);
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: border-color 0.3s;
+        }
+        .cert-item:hover {
+            border-color: var(--primary);
+        }
+        .cert-icon {
+            font-size: 2rem;
+            color: #fbbf24; /* Couleur Or pour le trophée */
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- NAVIGATION -->
+        <nav class="navbar">
+            <div class="logo"><a href="index.html">MN.</a></div>
+            <div class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="projets.html">Projets</a>
+                <a href="cv.html" class="active">CV & Parcours</a>
+            </div>
+        </nav>
+
+        <header style="padding-bottom: 20px;">
+            <h1>Mon Parcours</h1>
+            <p style="color: var(--text-muted);">
+                De l'analyse de données à l'ingénierie logicielle et l'IA.
+            </p>
+            <!-- REMARQUE : Tu devras mettre ton vrai fichier PDF dans le dossier du site -->
+            <a href="cv-mohamed-nchourupouo.pdf" download class="btn">
+                <i class="fas fa-file-download"></i> Télécharger mon CV (PDF)
+            </a>
+        </header>
+
+        <!-- EXPÉRIENCES -->
+        <section class="section">
+            <h2><i class="fas fa-briefcase"></i> Expériences Professionnelles</h2>
+            
+            <div class="timeline-item">
+                <h3>Stagiaire AI Engineer</h3>
+                <div class="timeline-date">Innovatech | Yaoundé (Actuel)</div>
+                <p style="color: var(--text-muted);">
+                    Développement de solutions d'IA générative et intégration de modèles LLM pour l'automatisation de processus métiers.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Stagiaire AI Engineer (Prévu)</h3>
+                <div class="timeline-date">BUNEC | Mai 2025 - Sept 2025</div>
+                <p style="color: var(--text-muted);">
+                    Participation à la transformation digitale et analyse des données d'état civil.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Enseignant d'Informatique</h3>
+                <div class="timeline-date">Collège Nana Bouba | 2025 - 2026</div>
+                <p style="color: var(--text-muted);">
+                    Transmission de connaissances en algorithmique et introduction à la programmation Python.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Stagiaire Data Analyst</h3>
+                <div class="timeline-date">Hydro-Mekin | Juil 2024 - Oct 2024</div>
+                <p style="color: var(--text-muted);">
+                    Collecte, nettoyage et analyse des données de production hydroélectrique. Création de rapports automatisés sous Power BI.
+                </p>
+            </div>
+        </section>
+
+        <!-- CERTIFICATIONS -->
+        <section class="section">
+            <h2><i class="fas fa-certificate"></i> Certifications DataCamp</h2>
+            <p style="color: var(--text-muted);">Validations techniques obtenues sur la plateforme DataCamp.</p>
+            
+            <div class="cert-grid">
+                <div class="cert-item">
+                    <i class="fas fa-trophy cert-icon"></i>
+                    <div>
+                        <strong>Machine Learning Scientist</strong>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">DataCamp</div>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <i class="fas fa-medal cert-icon"></i>
+                    <div>
+                        <strong>Associate Data Scientist</strong>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Python Track</div>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <i class="fas fa-chart-line cert-icon"></i>
+                    <div>
+                        <strong>Data Analyst</strong>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Python & SQL</div>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <i class="fas fa-database cert-icon"></i>
+                    <div>
+                        <strong>Data Analyst SQL</strong>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">En cours</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORMATION -->
+        <section class="section">
+            <h2><i class="fas fa-graduation-cap"></i> Formation Académique</h2>
+            
+            <div class="timeline-item" style="padding-bottom: 0;">
+                <h3>Master en IA et Big Data</h3>
+                <div class="timeline-date">Keyce Informatique et IA | 2024 - 2025</div>
+                <p style="color: var(--text-muted);">Spécialisation en architectures de données massives et algorithmes d'intelligence artificielle.</p>
+            </div>
+            
+            <div class="timeline-item" style="padding-bottom: 0;">
+                <h3>Licence en Informatique (Data Science)</h3>
+                <div class="timeline-date">Université de Yaoundé I | 2022 - 2023</div>
+                <p style="color: var(--text-muted);">Bases solides en mathématiques, statistiques et programmation.</p>
+            </div>
+
+            <div class="timeline-item" style="border: none; padding-bottom: 0;">
+                <h3>Baccalauréat C (Scientifique)</h3>
+                <div class="timeline-date">Collège privé laïc de la paix de Foumban | 2020</div>
+            </div>
+        </section>
+
+        <!-- COMPÉTENCES DÉTAILLÉES -->
+        <section class="section">
+            <h2><i class="fas fa-tools"></i> Arsenal Technique</h2>
+            
+            <h3 style="margin-top: 20px;">Langages & Frameworks</h3>
+            <div class="skills-grid">
+                <span class="skill-tag">Python (Avancé)</span>
+                <span class="skill-tag">SQL</span>
+                <span class="skill-tag">FastAPI</span>
+                <span class="skill-tag">Django</span>
+                <span class="skill-tag">LangChain</span>
+            </div>
+
+            <h3 style="margin-top: 20px;">Data & Outils</h3>
+            <div class="skills-grid">
+                <span class="skill-tag">Power BI</span>
+                <span class="skill-tag">PostgreSQL</span>
+                <span class="skill-tag">MongoDB</span>
+                <span class="skill-tag">PySpark</span>
+                <span class="skill-tag">Git / GitHub</span>
+                <span class="skill-tag">Docker</span>
+            </div>
+        </section>
+
+        <footer>
+            © 2025 Nchourupouo Mohamed
+        </footer>
+    </div>
+</body>
+</html>
