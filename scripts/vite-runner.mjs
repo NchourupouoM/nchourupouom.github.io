@@ -254,19 +254,24 @@ function buildApp() {
   const jsOut = path.join(assetsDir, 'index.js');
   fs.writeFileSync(jsOut, bundle, 'utf8');
 
-  // 4. Pre-render SSR HTML into dist/index.html + link assets
+  // 4. Pre-render SSR HTML into dist/index.html + inline CSS in <head> (eliminates FOUC)
   const ssrHtml = renderSsrHtml();
+  const compiledCss = fs.readFileSync(cssOut, 'utf8');
   const templatePath = fs.existsSync(path.join(rootDir, 'src/template.html'))
     ? path.join(rootDir, 'src/template.html')
     : path.join(rootDir, 'index.html');
   let indexHtml = fs.readFileSync(templatePath, 'utf8');
+  indexHtml = indexHtml.replace(
+    '</head>',
+    `    <link rel="stylesheet" href="/assets/index.css" />\n    <style id="inline-critical-css">${compiledCss}</style>\n  </head>`
+  );
   indexHtml = indexHtml.replace(
     '<div id="root"></div>',
     `<div id="root">${ssrHtml}</div>`
   );
   indexHtml = indexHtml.replace(
     '<script type="module" src="/src/main.jsx"></script>',
-    '<link rel="stylesheet" href="/assets/index.css" />\n    <script defer src="/assets/index.js"></script>'
+    '<script defer src="/assets/index.js"></script>'
   );
   fs.writeFileSync(path.join(distDir, 'index.html'), indexHtml, 'utf8');
   fs.writeFileSync(path.join(distDir, '.nojekyll'), '', 'utf8');
