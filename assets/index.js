@@ -1045,145 +1045,297 @@ var _profile = require('../data/profile');
 
 
 
+
+
 var _lucidereact = require('lucide-react');
 var _profile = require('../data/profile');
 var _notifyAction = require('../utils/notifyAction');
 
  function FooterContact({ lang, onOpenCvModal }) {
+  const [name, setName] = _react.useState.call(void 0, '');
+  const [email, setEmail] = _react.useState.call(void 0, '');
+  const [message, setMessage] = _react.useState.call(void 0, '');
+  const [status, setStatus] = _react.useState.call(void 0, 'idle'); // 'idle' | 'sending' | 'sent' | 'error'
+  const [errorMsg, setErrorMsg] = _react.useState.call(void 0, '');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!name.trim() || !email.trim() || !message.trim()) return;
+
+    setStatus('sending');
+    setErrorMsg('');
+
+    const result = await _notifyAction.submitContactForm.call(void 0, {
+      name: name.trim(),
+      email: email.trim(),
+      message: message.trim(),
+    });
+
+    if (result.ok) {
+      setStatus('sent');
+      setName('');
+      setEmail('');
+      setMessage('');
+    } else {
+      setStatus('error');
+      setErrorMsg(
+        result.error ||
+          (lang === 'fr'
+            ? "Une erreur s'est produite. Veuillez réessayer."
+            : 'Something went wrong. Please try again.')
+      );
+    }
+  };
+
   return (
     _jsxruntime.jsx.call(void 0, 'footer', { id: "contact", className: "py-16 sm:py-20 bg-[#0b0f17]/80 backdrop-blur-sm"   , children: 
       _jsxruntime.jsxs.call(void 0, 'div', { className: "max-w-5xl mx-auto px-4 sm:px-6 space-y-12"    , children: [
         _jsxruntime.jsxs.call(void 0, 'div', { className: "grid grid-cols-1 md:grid-cols-12 gap-8 items-start"    , children: [
-          /* Left: Contact Callout */
-          _jsxruntime.jsxs.call(void 0, 'div', { className: "md:col-span-7 space-y-4" , children: [
-            _jsxruntime.jsx.call(void 0, 'div', { className: "section-label", children: "Contact"})
-            , _jsxruntime.jsx.call(void 0, 'h2', { className: "text-2xl sm:text-3xl font-bold text-slate-50"   , children: 
-              lang === 'fr'
-                ? 'Discutons de vos projets IA, Data ou Backend'
-                : "Let's discuss your AI, Data, or Backend needs"
-            })
-            , _jsxruntime.jsx.call(void 0, 'p', { className: "text-sm sm:text-base text-slate-400 max-w-lg leading-relaxed"    , children: 
-              lang === 'fr'
-                ? "Basé à Yaoundé, Cameroun. Ouvert aux opportunités d'AI/ML Engineer, Data Scientist et Python Developer ainsi qu'aux collaborations techniques."
-                : 'Based in Yaoundé, Cameroon. Open to AI/ML Engineer, Data Scientist, and Python Developer opportunities and technical collaborations.'
-            })
-
-            , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex flex-wrap items-center gap-3 pt-2"    , children: [
-              _jsxruntime.jsxs.call(void 0, 'a', {
-                href: `mailto:${_profile.PROFILE.email}`,
-                onClick: () =>
-                  _notifyAction.notifyHighValueAction.call(void 0, {
-                    actionType: 'contact_click',
-                    actionLabel: 'Clic sur E-mail Direct (Footer Contact)',
-                    details: _profile.PROFILE.email,
-                  })
-                ,
-                className: "inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold bg-sky-500 hover:bg-sky-400 text-slate-950 transition-colors"           ,
- children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.Mail, { className: "w-4 h-4" ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: _profile.PROFILE.email})
-              ]})
-
-              , _jsxruntime.jsxs.call(void 0, 'button', {
-                type: "button",
-                onClick: onOpenCvModal,
-                className: "inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors"             ,
- children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.FileText, { className: "w-4 h-4 text-sky-400"  ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: lang === 'fr' ? 'Consulter le CV' : 'View CV'})
-              ]})
-
-              , _jsxruntime.jsxs.call(void 0, 'a', {
-                href: _profile.PROFILE.cvUrl,
-                download: "CV_Nchourupouo_mohamed.pdf",
-                onClick: () =>
-                  _notifyAction.notifyHighValueAction.call(void 0, {
-                    actionType: 'cv_download',
-                    actionLabel: 'Téléchargement du CV PDF (Footer Contact)',
-                    details: 'CV_Nchourupouo_mohamed.pdf',
-                  })
-                ,
-                className: "inline-flex items-center gap-2 px-3.5 py-2.5 rounded-lg text-sm font-medium bg-slate-900/70 hover:bg-slate-900 text-slate-300 border border-slate-800 transition-colors"             ,
- children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.Download, { className: "w-4 h-4" ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: "PDF"})
-              ]})
-            ]})
-          ]})
-
-          /* Right: Clean Contact Details */
-          , _jsxruntime.jsxs.call(void 0, 'div', { className: "md:col-span-5 clean-card rounded-xl p-5 sm:p-6 space-y-3.5 text-sm"      , children: [
-            _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
-              _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.MapPin, { className: "w-4 h-4 text-sky-400"  ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: lang === 'fr' ? 'Localisation' : 'Location'})
-              ]})
-              , _jsxruntime.jsx.call(void 0, 'span', { className: "text-slate-200 font-medium" , children: 
-                _profile.PROFILE.location[lang]
+          /* Left: Direct 3-Field Contact Form */
+          _jsxruntime.jsxs.call(void 0, 'div', { className: "md:col-span-7 space-y-5" , children: [
+            _jsxruntime.jsxs.call(void 0, 'div', { className: "space-y-2", children: [
+              _jsxruntime.jsx.call(void 0, 'div', { className: "section-label", children: "Contact"})
+              , _jsxruntime.jsx.call(void 0, 'h2', { className: "text-2xl sm:text-3xl font-bold text-slate-50"   , children: 
+                lang === 'fr'
+                  ? 'Discutons de vos projets IA, Data ou Backend'
+                  : "Let's discuss your AI, Data, or Backend needs"
+              })
+              , _jsxruntime.jsx.call(void 0, 'p', { className: "text-sm sm:text-base text-slate-400 leading-relaxed"   , children: 
+                lang === 'fr'
+                  ? "Envoyez-moi directement un message via ce formulaire — je vous réponds rapidement sur votre adresse e-mail."
+                  : 'Send me a message directly from this form — I will reply promptly to your email address.'
               })
             ]})
 
-            , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
-              _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.Phone, { className: "w-4 h-4 text-sky-400"  ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: lang === 'fr' ? 'Téléphone' : 'Phone'})
-              ]})
-              , _jsxruntime.jsx.call(void 0, 'a', {
-                href: "tel:+237698919105",
-                className: "text-slate-200 hover:text-sky-400 font-medium"  ,
+            , _jsxruntime.jsxs.call(void 0, 'form', {
+              onSubmit: handleSubmit,
+              className: "clean-card rounded-xl p-5 sm:p-6 space-y-4"    ,
+ children: [
+              _jsxruntime.jsxs.call(void 0, 'div', { className: "grid grid-cols-1 sm:grid-cols-2 gap-4"   , children: [
+                /* Field 1: Name */
+                _jsxruntime.jsxs.call(void 0, 'div', { className: "space-y-1.5", children: [
+                  _jsxruntime.jsx.call(void 0, 'label', {
+                    htmlFor: "contact-name",
+                    className: "block text-xs font-medium text-slate-300"   ,
  children: 
-                _profile.PROFILE.phoneDisplay
-              })
-            ]})
+                    lang === 'fr' ? 'Votre nom' : 'Your name'
+                  })
+                  , _jsxruntime.jsx.call(void 0, 'input', {
+                    id: "contact-name",
+                    type: "text",
+                    required: true,
+                    value: name,
+                    onChange: (e) => setName(e.target.value),
+                    placeholder: 
+                      lang === 'fr' ? 'Ex: Jean Dupont' : 'e.g. Jane Doe'
+                    ,
+                    className: "w-full rounded-lg bg-slate-900 border border-slate-800 px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-400 transition-colors"            ,}
+                  )
+                ]})
 
-            , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
-              _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.Linkedin, { className: "w-4 h-4 text-sky-400"  ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: "LinkedIn"})
+                /* Field 2: Sender Email */
+                , _jsxruntime.jsxs.call(void 0, 'div', { className: "space-y-1.5", children: [
+                  _jsxruntime.jsx.call(void 0, 'label', {
+                    htmlFor: "contact-email",
+                    className: "block text-xs font-medium text-slate-300"   ,
+ children: 
+                    lang === 'fr' ? 'Votre adresse e-mail' : 'Your email address'
+                  })
+                  , _jsxruntime.jsx.call(void 0, 'input', {
+                    id: "contact-email",
+                    type: "email",
+                    required: true,
+                    value: email,
+                    onChange: (e) => setEmail(e.target.value),
+                    placeholder: 
+                      lang === 'fr'
+                        ? 'vous@entreprise.com'
+                        : 'you@company.com'
+                    ,
+                    className: "w-full rounded-lg bg-slate-900 border border-slate-800 px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-400 transition-colors"            ,}
+                  )
+                ]})
               ]})
-              , _jsxruntime.jsxs.call(void 0, 'a', {
-                href: _profile.PROFILE.linkedin,
-                target: "_blank",
-                rel: "noopener noreferrer" ,
-                className: "text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 font-medium"     ,
- children: [
-                _jsxruntime.jsx.call(void 0, 'span', { children: "mohamed-nchourupouo"})
-                , _jsxruntime.jsx.call(void 0, _lucidereact.ExternalLink, { className: "w-3.5 h-3.5" ,} )
-              ]})
-            ]})
 
-            , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
-              _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.Github, { className: "w-4 h-4 text-sky-400"  ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: "GitHub"})
+              /* Field 3: Message */
+              , _jsxruntime.jsxs.call(void 0, 'div', { className: "space-y-1.5", children: [
+                _jsxruntime.jsx.call(void 0, 'label', {
+                  htmlFor: "contact-message",
+                  className: "block text-xs font-medium text-slate-300"   ,
+ children: 
+                  lang === 'fr' ? 'Votre message' : 'Your message'
+                })
+                , _jsxruntime.jsx.call(void 0, 'textarea', {
+                  id: "contact-message",
+                  rows: 4,
+                  required: true,
+                  value: message,
+                  onChange: (e) => setMessage(e.target.value),
+                  placeholder: 
+                    lang === 'fr'
+                      ? 'Bonjour Mohamed, je souhaiterais échanger avec vous concernant une opportunité ou un projet...'
+                      : "Hi Mohamed, I'd love to connect regarding an engineering role or project..."
+                  ,
+                  className: "w-full rounded-lg bg-slate-900 border border-slate-800 px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-400 transition-colors resize-y"             ,}
+                )
               ]})
-              , _jsxruntime.jsxs.call(void 0, 'a', {
-                href: _profile.PROFILE.github,
-                target: "_blank",
-                rel: "noopener noreferrer" ,
-                className: "text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 font-medium"     ,
- children: [
-                _jsxruntime.jsx.call(void 0, 'span', { children: "NchourupouoM"})
-                , _jsxruntime.jsx.call(void 0, _lucidereact.ExternalLink, { className: "w-3.5 h-3.5" ,} )
-              ]})
-            ]})
 
-            , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
-              _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.Youtube, { className: "w-4 h-4 text-red-500"  ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: "YouTube"})
-              ]})
-              , _jsxruntime.jsxs.call(void 0, 'a', {
-                href: "https://www.youtube.com/@espacelatent",
-                target: "_blank",
-                rel: "noopener noreferrer" ,
-                className: "text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 font-medium"     ,
+              /* Submit Button & Feedback */
+              , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex flex-wrap items-center justify-between gap-3 pt-1"     , children: [
+                _jsxruntime.jsxs.call(void 0, 'button', {
+                  type: "submit",
+                  disabled: status === 'sending',
+                  className: "inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold bg-sky-500 hover:bg-sky-400 disabled:opacity-60 text-slate-950 transition-colors"            ,
  children: [
-                _jsxruntime.jsx.call(void 0, 'span', { children: "@espacelatent"})
-                , _jsxruntime.jsx.call(void 0, _lucidereact.ExternalLink, { className: "w-3.5 h-3.5" ,} )
+                  _jsxruntime.jsx.call(void 0, _lucidereact.Send, { className: "w-4 h-4" ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: 
+                    status === 'sending'
+                      ? lang === 'fr'
+                        ? 'Envoi en cours...'
+                        : 'Sending...'
+                      : lang === 'fr'
+                      ? 'Envoyer le message'
+                      : 'Send message'
+                  })
+                ]})
+
+                , status === 'sent' && (
+                  _jsxruntime.jsxs.call(void 0, 'span', { className: "inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-emerald-500"      , children: [
+                    _jsxruntime.jsx.call(void 0, _lucidereact.CheckCircle2, { className: "w-4 h-4 shrink-0"  ,} )
+                    , _jsxruntime.jsx.call(void 0, 'span', { children: 
+                      lang === 'fr'
+                        ? 'Message envoyé ! Je vous répondrai très vite.'
+                        : 'Message sent! I will reply to you shortly.'
+                    })
+                  ]})
+                )
+
+                , status === 'error' && (
+                  _jsxruntime.jsx.call(void 0, 'span', { className: "text-xs sm:text-sm font-medium text-red-400"   , children: 
+                    errorMsg
+                  })
+                )
               ]})
             ]})
           ]})
+
+          /* Right: Clean Contact Details & CV Actions */
+          , _jsxruntime.jsx.call(void 0, 'div', { className: "md:col-span-5 space-y-4" , children: 
+            _jsxruntime.jsxs.call(void 0, 'div', { className: "clean-card rounded-xl p-5 sm:p-6 space-y-3.5 text-sm"     , children: [
+              _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
+                _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
+                  _jsxruntime.jsx.call(void 0, _lucidereact.MapPin, { className: "w-4 h-4 text-sky-400"  ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: lang === 'fr' ? 'Localisation' : 'Location'})
+                ]})
+                , _jsxruntime.jsx.call(void 0, 'span', { className: "text-slate-200 font-medium" , children: 
+                  _profile.PROFILE.location[lang]
+                })
+              ]})
+
+              , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
+                _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
+                  _jsxruntime.jsx.call(void 0, _lucidereact.Phone, { className: "w-4 h-4 text-sky-400"  ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: lang === 'fr' ? 'Téléphone' : 'Phone'})
+                ]})
+                , _jsxruntime.jsx.call(void 0, 'a', {
+                  href: "tel:+237698919105",
+                  onClick: () =>
+                    _notifyAction.notifyHighValueAction.call(void 0, {
+                      actionType: 'contact_click',
+                      actionLabel: 'Clic sur Téléphone (Footer)',
+                      details: _profile.PROFILE.phoneDisplay,
+                    })
+                  ,
+                  className: "text-slate-200 hover:text-sky-400 font-medium"  ,
+ children: 
+                  _profile.PROFILE.phoneDisplay
+                })
+              ]})
+
+              , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
+                _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
+                  _jsxruntime.jsx.call(void 0, _lucidereact.Linkedin, { className: "w-4 h-4 text-sky-400"  ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: "LinkedIn"})
+                ]})
+                , _jsxruntime.jsxs.call(void 0, 'a', {
+                  href: _profile.PROFILE.linkedin,
+                  target: "_blank",
+                  rel: "noopener noreferrer" ,
+                  onClick: () =>
+                    _notifyAction.notifyHighValueAction.call(void 0, {
+                      actionType: 'contact_click',
+                      actionLabel: 'Clic sur LinkedIn (Footer)',
+                      details: _profile.PROFILE.linkedin,
+                    })
+                  ,
+                  className: "text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 font-medium"     ,
+ children: [
+                  _jsxruntime.jsx.call(void 0, 'span', { children: "mohamed-nchourupouo"})
+                  , _jsxruntime.jsx.call(void 0, _lucidereact.ExternalLink, { className: "w-3.5 h-3.5" ,} )
+                ]})
+              ]})
+
+              , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
+                _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
+                  _jsxruntime.jsx.call(void 0, _lucidereact.Github, { className: "w-4 h-4 text-sky-400"  ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: "GitHub"})
+                ]})
+                , _jsxruntime.jsxs.call(void 0, 'a', {
+                  href: _profile.PROFILE.github,
+                  target: "_blank",
+                  rel: "noopener noreferrer" ,
+                  className: "text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 font-medium"     ,
+ children: [
+                  _jsxruntime.jsx.call(void 0, 'span', { children: "NchourupouoM"})
+                  , _jsxruntime.jsx.call(void 0, _lucidereact.ExternalLink, { className: "w-3.5 h-3.5" ,} )
+                ]})
+              ]})
+
+              , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
+                _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
+                  _jsxruntime.jsx.call(void 0, _lucidereact.Youtube, { className: "w-4 h-4 text-red-500"  ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: "YouTube"})
+                ]})
+                , _jsxruntime.jsxs.call(void 0, 'a', {
+                  href: "https://www.youtube.com/@espacelatent",
+                  target: "_blank",
+                  rel: "noopener noreferrer" ,
+                  className: "text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 font-medium"     ,
+ children: [
+                  _jsxruntime.jsx.call(void 0, 'span', { children: "@espacelatent"})
+                  , _jsxruntime.jsx.call(void 0, _lucidereact.ExternalLink, { className: "w-3.5 h-3.5" ,} )
+                ]})
+              ]})
+
+              /* CV Quick Buttons */
+              , _jsxruntime.jsxs.call(void 0, 'div', { className: "pt-3 border-t border-slate-800/80 flex items-center gap-2.5"     , children: [
+                _jsxruntime.jsxs.call(void 0, 'button', {
+                  type: "button",
+                  onClick: onOpenCvModal,
+                  className: "flex-1 inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors"                ,
+ children: [
+                  _jsxruntime.jsx.call(void 0, _lucidereact.FileText, { className: "w-4 h-4 text-sky-400"  ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: lang === 'fr' ? 'Consulter le CV' : 'View CV'})
+                ]})
+
+                , _jsxruntime.jsxs.call(void 0, 'a', {
+                  href: _profile.PROFILE.cvUrl,
+                  download: "CV_Nchourupouo_mohamed.pdf",
+                  onClick: () =>
+                    _notifyAction.notifyHighValueAction.call(void 0, {
+                      actionType: 'cv_download',
+                      actionLabel: 'Téléchargement du CV PDF (Footer Contact)',
+                      details: 'CV_Nchourupouo_mohamed.pdf',
+                    })
+                  ,
+                  className: "inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-sky-500 hover:bg-sky-400 text-slate-950 transition-colors"             ,
+ children: [
+                  _jsxruntime.jsx.call(void 0, _lucidereact.Download, { className: "w-4 h-4" ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: "PDF"})
+                ]})
+              ]})
+            ]})
+          })
         ]})
 
         , _jsxruntime.jsxs.call(void 0, 'div', { className: "pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500"          , children: [
@@ -1215,145 +1367,297 @@ var _notifyAction = require('../utils/notifyAction');
 
 
 
+
+
 var _lucidereact = require('lucide-react');
 var _profile = require('../data/profile');
 var _notifyAction = require('../utils/notifyAction');
 
  function FooterContact({ lang, onOpenCvModal }) {
+  const [name, setName] = _react.useState.call(void 0, '');
+  const [email, setEmail] = _react.useState.call(void 0, '');
+  const [message, setMessage] = _react.useState.call(void 0, '');
+  const [status, setStatus] = _react.useState.call(void 0, 'idle'); // 'idle' | 'sending' | 'sent' | 'error'
+  const [errorMsg, setErrorMsg] = _react.useState.call(void 0, '');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!name.trim() || !email.trim() || !message.trim()) return;
+
+    setStatus('sending');
+    setErrorMsg('');
+
+    const result = await _notifyAction.submitContactForm.call(void 0, {
+      name: name.trim(),
+      email: email.trim(),
+      message: message.trim(),
+    });
+
+    if (result.ok) {
+      setStatus('sent');
+      setName('');
+      setEmail('');
+      setMessage('');
+    } else {
+      setStatus('error');
+      setErrorMsg(
+        result.error ||
+          (lang === 'fr'
+            ? "Une erreur s'est produite. Veuillez réessayer."
+            : 'Something went wrong. Please try again.')
+      );
+    }
+  };
+
   return (
     _jsxruntime.jsx.call(void 0, 'footer', { id: "contact", className: "py-16 sm:py-20 bg-[#0b0f17]/80 backdrop-blur-sm"   , children: 
       _jsxruntime.jsxs.call(void 0, 'div', { className: "max-w-5xl mx-auto px-4 sm:px-6 space-y-12"    , children: [
         _jsxruntime.jsxs.call(void 0, 'div', { className: "grid grid-cols-1 md:grid-cols-12 gap-8 items-start"    , children: [
-          /* Left: Contact Callout */
-          _jsxruntime.jsxs.call(void 0, 'div', { className: "md:col-span-7 space-y-4" , children: [
-            _jsxruntime.jsx.call(void 0, 'div', { className: "section-label", children: "Contact"})
-            , _jsxruntime.jsx.call(void 0, 'h2', { className: "text-2xl sm:text-3xl font-bold text-slate-50"   , children: 
-              lang === 'fr'
-                ? 'Discutons de vos projets IA, Data ou Backend'
-                : "Let's discuss your AI, Data, or Backend needs"
-            })
-            , _jsxruntime.jsx.call(void 0, 'p', { className: "text-sm sm:text-base text-slate-400 max-w-lg leading-relaxed"    , children: 
-              lang === 'fr'
-                ? "Basé à Yaoundé, Cameroun. Ouvert aux opportunités d'AI/ML Engineer, Data Scientist et Python Developer ainsi qu'aux collaborations techniques."
-                : 'Based in Yaoundé, Cameroon. Open to AI/ML Engineer, Data Scientist, and Python Developer opportunities and technical collaborations.'
-            })
-
-            , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex flex-wrap items-center gap-3 pt-2"    , children: [
-              _jsxruntime.jsxs.call(void 0, 'a', {
-                href: `mailto:${_profile.PROFILE.email}`,
-                onClick: () =>
-                  _notifyAction.notifyHighValueAction.call(void 0, {
-                    actionType: 'contact_click',
-                    actionLabel: 'Clic sur E-mail Direct (Footer Contact)',
-                    details: _profile.PROFILE.email,
-                  })
-                ,
-                className: "inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold bg-sky-500 hover:bg-sky-400 text-slate-950 transition-colors"           ,
- children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.Mail, { className: "w-4 h-4" ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: _profile.PROFILE.email})
-              ]})
-
-              , _jsxruntime.jsxs.call(void 0, 'button', {
-                type: "button",
-                onClick: onOpenCvModal,
-                className: "inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors"             ,
- children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.FileText, { className: "w-4 h-4 text-sky-400"  ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: lang === 'fr' ? 'Consulter le CV' : 'View CV'})
-              ]})
-
-              , _jsxruntime.jsxs.call(void 0, 'a', {
-                href: _profile.PROFILE.cvUrl,
-                download: "CV_Nchourupouo_mohamed.pdf",
-                onClick: () =>
-                  _notifyAction.notifyHighValueAction.call(void 0, {
-                    actionType: 'cv_download',
-                    actionLabel: 'Téléchargement du CV PDF (Footer Contact)',
-                    details: 'CV_Nchourupouo_mohamed.pdf',
-                  })
-                ,
-                className: "inline-flex items-center gap-2 px-3.5 py-2.5 rounded-lg text-sm font-medium bg-slate-900/70 hover:bg-slate-900 text-slate-300 border border-slate-800 transition-colors"             ,
- children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.Download, { className: "w-4 h-4" ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: "PDF"})
-              ]})
-            ]})
-          ]})
-
-          /* Right: Clean Contact Details */
-          , _jsxruntime.jsxs.call(void 0, 'div', { className: "md:col-span-5 clean-card rounded-xl p-5 sm:p-6 space-y-3.5 text-sm"      , children: [
-            _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
-              _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.MapPin, { className: "w-4 h-4 text-sky-400"  ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: lang === 'fr' ? 'Localisation' : 'Location'})
-              ]})
-              , _jsxruntime.jsx.call(void 0, 'span', { className: "text-slate-200 font-medium" , children: 
-                _profile.PROFILE.location[lang]
+          /* Left: Direct 3-Field Contact Form */
+          _jsxruntime.jsxs.call(void 0, 'div', { className: "md:col-span-7 space-y-5" , children: [
+            _jsxruntime.jsxs.call(void 0, 'div', { className: "space-y-2", children: [
+              _jsxruntime.jsx.call(void 0, 'div', { className: "section-label", children: "Contact"})
+              , _jsxruntime.jsx.call(void 0, 'h2', { className: "text-2xl sm:text-3xl font-bold text-slate-50"   , children: 
+                lang === 'fr'
+                  ? 'Discutons de vos projets IA, Data ou Backend'
+                  : "Let's discuss your AI, Data, or Backend needs"
+              })
+              , _jsxruntime.jsx.call(void 0, 'p', { className: "text-sm sm:text-base text-slate-400 leading-relaxed"   , children: 
+                lang === 'fr'
+                  ? "Envoyez-moi directement un message via ce formulaire — je vous réponds rapidement sur votre adresse e-mail."
+                  : 'Send me a message directly from this form — I will reply promptly to your email address.'
               })
             ]})
 
-            , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
-              _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.Phone, { className: "w-4 h-4 text-sky-400"  ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: lang === 'fr' ? 'Téléphone' : 'Phone'})
-              ]})
-              , _jsxruntime.jsx.call(void 0, 'a', {
-                href: "tel:+237698919105",
-                className: "text-slate-200 hover:text-sky-400 font-medium"  ,
+            , _jsxruntime.jsxs.call(void 0, 'form', {
+              onSubmit: handleSubmit,
+              className: "clean-card rounded-xl p-5 sm:p-6 space-y-4"    ,
+ children: [
+              _jsxruntime.jsxs.call(void 0, 'div', { className: "grid grid-cols-1 sm:grid-cols-2 gap-4"   , children: [
+                /* Field 1: Name */
+                _jsxruntime.jsxs.call(void 0, 'div', { className: "space-y-1.5", children: [
+                  _jsxruntime.jsx.call(void 0, 'label', {
+                    htmlFor: "contact-name",
+                    className: "block text-xs font-medium text-slate-300"   ,
  children: 
-                _profile.PROFILE.phoneDisplay
-              })
-            ]})
+                    lang === 'fr' ? 'Votre nom' : 'Your name'
+                  })
+                  , _jsxruntime.jsx.call(void 0, 'input', {
+                    id: "contact-name",
+                    type: "text",
+                    required: true,
+                    value: name,
+                    onChange: (e) => setName(e.target.value),
+                    placeholder: 
+                      lang === 'fr' ? 'Ex: Jean Dupont' : 'e.g. Jane Doe'
+                    ,
+                    className: "w-full rounded-lg bg-slate-900 border border-slate-800 px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-400 transition-colors"            ,}
+                  )
+                ]})
 
-            , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
-              _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.Linkedin, { className: "w-4 h-4 text-sky-400"  ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: "LinkedIn"})
+                /* Field 2: Sender Email */
+                , _jsxruntime.jsxs.call(void 0, 'div', { className: "space-y-1.5", children: [
+                  _jsxruntime.jsx.call(void 0, 'label', {
+                    htmlFor: "contact-email",
+                    className: "block text-xs font-medium text-slate-300"   ,
+ children: 
+                    lang === 'fr' ? 'Votre adresse e-mail' : 'Your email address'
+                  })
+                  , _jsxruntime.jsx.call(void 0, 'input', {
+                    id: "contact-email",
+                    type: "email",
+                    required: true,
+                    value: email,
+                    onChange: (e) => setEmail(e.target.value),
+                    placeholder: 
+                      lang === 'fr'
+                        ? 'vous@entreprise.com'
+                        : 'you@company.com'
+                    ,
+                    className: "w-full rounded-lg bg-slate-900 border border-slate-800 px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-400 transition-colors"            ,}
+                  )
+                ]})
               ]})
-              , _jsxruntime.jsxs.call(void 0, 'a', {
-                href: _profile.PROFILE.linkedin,
-                target: "_blank",
-                rel: "noopener noreferrer" ,
-                className: "text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 font-medium"     ,
- children: [
-                _jsxruntime.jsx.call(void 0, 'span', { children: "mohamed-nchourupouo"})
-                , _jsxruntime.jsx.call(void 0, _lucidereact.ExternalLink, { className: "w-3.5 h-3.5" ,} )
-              ]})
-            ]})
 
-            , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
-              _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.Github, { className: "w-4 h-4 text-sky-400"  ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: "GitHub"})
+              /* Field 3: Message */
+              , _jsxruntime.jsxs.call(void 0, 'div', { className: "space-y-1.5", children: [
+                _jsxruntime.jsx.call(void 0, 'label', {
+                  htmlFor: "contact-message",
+                  className: "block text-xs font-medium text-slate-300"   ,
+ children: 
+                  lang === 'fr' ? 'Votre message' : 'Your message'
+                })
+                , _jsxruntime.jsx.call(void 0, 'textarea', {
+                  id: "contact-message",
+                  rows: 4,
+                  required: true,
+                  value: message,
+                  onChange: (e) => setMessage(e.target.value),
+                  placeholder: 
+                    lang === 'fr'
+                      ? 'Bonjour Mohamed, je souhaiterais échanger avec vous concernant une opportunité ou un projet...'
+                      : "Hi Mohamed, I'd love to connect regarding an engineering role or project..."
+                  ,
+                  className: "w-full rounded-lg bg-slate-900 border border-slate-800 px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-400 transition-colors resize-y"             ,}
+                )
               ]})
-              , _jsxruntime.jsxs.call(void 0, 'a', {
-                href: _profile.PROFILE.github,
-                target: "_blank",
-                rel: "noopener noreferrer" ,
-                className: "text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 font-medium"     ,
- children: [
-                _jsxruntime.jsx.call(void 0, 'span', { children: "NchourupouoM"})
-                , _jsxruntime.jsx.call(void 0, _lucidereact.ExternalLink, { className: "w-3.5 h-3.5" ,} )
-              ]})
-            ]})
 
-            , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
-              _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
-                _jsxruntime.jsx.call(void 0, _lucidereact.Youtube, { className: "w-4 h-4 text-red-500"  ,} )
-                , _jsxruntime.jsx.call(void 0, 'span', { children: "YouTube"})
-              ]})
-              , _jsxruntime.jsxs.call(void 0, 'a', {
-                href: "https://www.youtube.com/@espacelatent",
-                target: "_blank",
-                rel: "noopener noreferrer" ,
-                className: "text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 font-medium"     ,
+              /* Submit Button & Feedback */
+              , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex flex-wrap items-center justify-between gap-3 pt-1"     , children: [
+                _jsxruntime.jsxs.call(void 0, 'button', {
+                  type: "submit",
+                  disabled: status === 'sending',
+                  className: "inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold bg-sky-500 hover:bg-sky-400 disabled:opacity-60 text-slate-950 transition-colors"            ,
  children: [
-                _jsxruntime.jsx.call(void 0, 'span', { children: "@espacelatent"})
-                , _jsxruntime.jsx.call(void 0, _lucidereact.ExternalLink, { className: "w-3.5 h-3.5" ,} )
+                  _jsxruntime.jsx.call(void 0, _lucidereact.Send, { className: "w-4 h-4" ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: 
+                    status === 'sending'
+                      ? lang === 'fr'
+                        ? 'Envoi en cours...'
+                        : 'Sending...'
+                      : lang === 'fr'
+                      ? 'Envoyer le message'
+                      : 'Send message'
+                  })
+                ]})
+
+                , status === 'sent' && (
+                  _jsxruntime.jsxs.call(void 0, 'span', { className: "inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-emerald-500"      , children: [
+                    _jsxruntime.jsx.call(void 0, _lucidereact.CheckCircle2, { className: "w-4 h-4 shrink-0"  ,} )
+                    , _jsxruntime.jsx.call(void 0, 'span', { children: 
+                      lang === 'fr'
+                        ? 'Message envoyé ! Je vous répondrai très vite.'
+                        : 'Message sent! I will reply to you shortly.'
+                    })
+                  ]})
+                )
+
+                , status === 'error' && (
+                  _jsxruntime.jsx.call(void 0, 'span', { className: "text-xs sm:text-sm font-medium text-red-400"   , children: 
+                    errorMsg
+                  })
+                )
               ]})
             ]})
           ]})
+
+          /* Right: Clean Contact Details & CV Actions */
+          , _jsxruntime.jsx.call(void 0, 'div', { className: "md:col-span-5 space-y-4" , children: 
+            _jsxruntime.jsxs.call(void 0, 'div', { className: "clean-card rounded-xl p-5 sm:p-6 space-y-3.5 text-sm"     , children: [
+              _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
+                _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
+                  _jsxruntime.jsx.call(void 0, _lucidereact.MapPin, { className: "w-4 h-4 text-sky-400"  ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: lang === 'fr' ? 'Localisation' : 'Location'})
+                ]})
+                , _jsxruntime.jsx.call(void 0, 'span', { className: "text-slate-200 font-medium" , children: 
+                  _profile.PROFILE.location[lang]
+                })
+              ]})
+
+              , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
+                _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
+                  _jsxruntime.jsx.call(void 0, _lucidereact.Phone, { className: "w-4 h-4 text-sky-400"  ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: lang === 'fr' ? 'Téléphone' : 'Phone'})
+                ]})
+                , _jsxruntime.jsx.call(void 0, 'a', {
+                  href: "tel:+237698919105",
+                  onClick: () =>
+                    _notifyAction.notifyHighValueAction.call(void 0, {
+                      actionType: 'contact_click',
+                      actionLabel: 'Clic sur Téléphone (Footer)',
+                      details: _profile.PROFILE.phoneDisplay,
+                    })
+                  ,
+                  className: "text-slate-200 hover:text-sky-400 font-medium"  ,
+ children: 
+                  _profile.PROFILE.phoneDisplay
+                })
+              ]})
+
+              , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
+                _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
+                  _jsxruntime.jsx.call(void 0, _lucidereact.Linkedin, { className: "w-4 h-4 text-sky-400"  ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: "LinkedIn"})
+                ]})
+                , _jsxruntime.jsxs.call(void 0, 'a', {
+                  href: _profile.PROFILE.linkedin,
+                  target: "_blank",
+                  rel: "noopener noreferrer" ,
+                  onClick: () =>
+                    _notifyAction.notifyHighValueAction.call(void 0, {
+                      actionType: 'contact_click',
+                      actionLabel: 'Clic sur LinkedIn (Footer)',
+                      details: _profile.PROFILE.linkedin,
+                    })
+                  ,
+                  className: "text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 font-medium"     ,
+ children: [
+                  _jsxruntime.jsx.call(void 0, 'span', { children: "mohamed-nchourupouo"})
+                  , _jsxruntime.jsx.call(void 0, _lucidereact.ExternalLink, { className: "w-3.5 h-3.5" ,} )
+                ]})
+              ]})
+
+              , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
+                _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
+                  _jsxruntime.jsx.call(void 0, _lucidereact.Github, { className: "w-4 h-4 text-sky-400"  ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: "GitHub"})
+                ]})
+                , _jsxruntime.jsxs.call(void 0, 'a', {
+                  href: _profile.PROFILE.github,
+                  target: "_blank",
+                  rel: "noopener noreferrer" ,
+                  className: "text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 font-medium"     ,
+ children: [
+                  _jsxruntime.jsx.call(void 0, 'span', { children: "NchourupouoM"})
+                  , _jsxruntime.jsx.call(void 0, _lucidereact.ExternalLink, { className: "w-3.5 h-3.5" ,} )
+                ]})
+              ]})
+
+              , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex items-center justify-between gap-3"   , children: [
+                _jsxruntime.jsxs.call(void 0, 'span', { className: "text-slate-400 flex items-center gap-2"   , children: [
+                  _jsxruntime.jsx.call(void 0, _lucidereact.Youtube, { className: "w-4 h-4 text-red-500"  ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: "YouTube"})
+                ]})
+                , _jsxruntime.jsxs.call(void 0, 'a', {
+                  href: "https://www.youtube.com/@espacelatent",
+                  target: "_blank",
+                  rel: "noopener noreferrer" ,
+                  className: "text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 font-medium"     ,
+ children: [
+                  _jsxruntime.jsx.call(void 0, 'span', { children: "@espacelatent"})
+                  , _jsxruntime.jsx.call(void 0, _lucidereact.ExternalLink, { className: "w-3.5 h-3.5" ,} )
+                ]})
+              ]})
+
+              /* CV Quick Buttons */
+              , _jsxruntime.jsxs.call(void 0, 'div', { className: "pt-3 border-t border-slate-800/80 flex items-center gap-2.5"     , children: [
+                _jsxruntime.jsxs.call(void 0, 'button', {
+                  type: "button",
+                  onClick: onOpenCvModal,
+                  className: "flex-1 inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors"                ,
+ children: [
+                  _jsxruntime.jsx.call(void 0, _lucidereact.FileText, { className: "w-4 h-4 text-sky-400"  ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: lang === 'fr' ? 'Consulter le CV' : 'View CV'})
+                ]})
+
+                , _jsxruntime.jsxs.call(void 0, 'a', {
+                  href: _profile.PROFILE.cvUrl,
+                  download: "CV_Nchourupouo_mohamed.pdf",
+                  onClick: () =>
+                    _notifyAction.notifyHighValueAction.call(void 0, {
+                      actionType: 'cv_download',
+                      actionLabel: 'Téléchargement du CV PDF (Footer Contact)',
+                      details: 'CV_Nchourupouo_mohamed.pdf',
+                    })
+                  ,
+                  className: "inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-sky-500 hover:bg-sky-400 text-slate-950 transition-colors"             ,
+ children: [
+                  _jsxruntime.jsx.call(void 0, _lucidereact.Download, { className: "w-4 h-4" ,} )
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: "PDF"})
+                ]})
+              ]})
+            ]})
+          })
         ]})
 
         , _jsxruntime.jsxs.call(void 0, 'div', { className: "pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500"          , children: [
@@ -1509,18 +1813,13 @@ var _notifyAction = require('../utils/notifyAction');
                   , _jsxruntime.jsx.call(void 0, 'span', { children: "@espacelatent"})
                 ]})
                 , _jsxruntime.jsxs.call(void 0, 'a', {
-                  href: `mailto:${_profile.PROFILE.email}`,
-                  onClick: () =>
-                    _notifyAction.notifyHighValueAction.call(void 0, {
-                      actionType: 'contact_click',
-                      actionLabel: 'Clic sur E-mail Direct (Hero)',
-                      details: _profile.PROFILE.email,
-                    })
-                  ,
+                  href: "#contact",
                   className: "inline-flex items-center gap-1.5 hover:text-slate-100 transition-colors"    ,
  children: [
                   _jsxruntime.jsx.call(void 0, _lucidereact.Mail, { className: "w-4 h-4 text-slate-300"  ,} )
-                  , _jsxruntime.jsx.call(void 0, 'span', { children: _profile.PROFILE.email})
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: 
+                    lang === 'fr' ? 'Formulaire de contact' : 'Contact form'
+                  })
                 ]})
               ]})
             ]})
@@ -1738,18 +2037,13 @@ var _notifyAction = require('../utils/notifyAction');
                   , _jsxruntime.jsx.call(void 0, 'span', { children: "@espacelatent"})
                 ]})
                 , _jsxruntime.jsxs.call(void 0, 'a', {
-                  href: `mailto:${_profile.PROFILE.email}`,
-                  onClick: () =>
-                    _notifyAction.notifyHighValueAction.call(void 0, {
-                      actionType: 'contact_click',
-                      actionLabel: 'Clic sur E-mail Direct (Hero)',
-                      details: _profile.PROFILE.email,
-                    })
-                  ,
+                  href: "#contact",
                   className: "inline-flex items-center gap-1.5 hover:text-slate-100 transition-colors"    ,
  children: [
                   _jsxruntime.jsx.call(void 0, _lucidereact.Mail, { className: "w-4 h-4 text-slate-300"  ,} )
-                  , _jsxruntime.jsx.call(void 0, 'span', { children: _profile.PROFILE.email})
+                  , _jsxruntime.jsx.call(void 0, 'span', { children: 
+                    lang === 'fr' ? 'Formulaire de contact' : 'Contact form'
+                  })
                 ]})
               ]})
             ]})
@@ -4450,6 +4744,14 @@ function createLucideIcon(children) {
   ]})
 ); exports.Award = Award;
 
+ const Send = createLucideIcon(
+  _jsxruntime.jsxs.call(void 0, _jsxruntime.Fragment, { children: [
+    _jsxruntime.jsx.call(void 0, 'path', { d: "m22 2-7 20-4-9-9-4Z"  ,} )
+    , _jsxruntime.jsx.call(void 0, 'path', { d: "M22 2 11 13"   ,} )
+  ]})
+); exports.Send = Send;
+
+
   };
   modules["./src/components/icons"] = function(module, exports, require) {
 "use strict";var _jsxruntime = require("react/jsx-runtime");Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _react = require('react'); var _react2 = _interopRequireDefault(_react);
@@ -4723,6 +5025,14 @@ function createLucideIcon(children) {
     , _jsxruntime.jsx.call(void 0, 'circle', { cx: "12", cy: "8", r: "6",} )
   ]})
 ); exports.Award = Award;
+
+ const Send = createLucideIcon(
+  _jsxruntime.jsxs.call(void 0, _jsxruntime.Fragment, { children: [
+    _jsxruntime.jsx.call(void 0, 'path', { d: "m22 2-7 20-4-9-9-4Z"  ,} )
+    , _jsxruntime.jsx.call(void 0, 'path', { d: "M22 2 11 13"   ,} )
+  ]})
+); exports.Send = Send;
+
 
   };
   modules["./src/components/motion.jsx"] = function(module, exports, require) {
@@ -6409,6 +6719,60 @@ async function fetchGeoContext() {
   }
 } exports.notifyHighValueAction = notifyHighValueAction;
 
+/**
+ * Submit the 3-field Contact Form directly via Web3Forms.
+ *
+ * @param {Object} form
+ * @param {string} form.name
+ * @param {string} form.email
+ * @param {string} form.message
+ * @returns {Promise<{ ok: boolean, error?: string }>}
+ */
+ async function submitContactForm({ name, email, message }) {
+  try {
+    if (
+      !exports.WEB3FORMS_ACCESS_KEY ||
+      exports.WEB3FORMS_ACCESS_KEY === 'YOUR_WEB3FORMS_ACCESS_KEY'
+    ) {
+      return {
+        ok: false,
+        error: 'Clé Web3Forms non configurée.',
+      };
+    }
+
+    const res = await fetch(WEB3FORMS_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        access_key: exports.WEB3FORMS_ACCESS_KEY,
+        subject: `✉️ [Contact Portfolio] Nouveau message de ${name}`,
+        from_name: name,
+        email,
+        replyto: email,
+        message,
+      }),
+    });
+
+    const data = await res.json();
+    if (res.ok && data.success !== false) {
+      return { ok: true };
+    }
+    return {
+      ok: false,
+      error: data.message || 'Erreur lors de l’envoi.',
+    };
+  } catch (e4) {
+    return {
+      ok: false,
+      error: 'Erreur réseau lors de l’envoi du message.',
+    };
+  }
+} exports.submitContactForm = submitContactForm;
+
+
 
   };
   modules["./src/utils/notifyAction"] = function(module, exports, require) {
@@ -6562,6 +6926,60 @@ async function fetchGeoContext() {
     // Fail silently so visitor UX is never interrupted
   }
 } exports.notifyHighValueAction = notifyHighValueAction;
+
+/**
+ * Submit the 3-field Contact Form directly via Web3Forms.
+ *
+ * @param {Object} form
+ * @param {string} form.name
+ * @param {string} form.email
+ * @param {string} form.message
+ * @returns {Promise<{ ok: boolean, error?: string }>}
+ */
+ async function submitContactForm({ name, email, message }) {
+  try {
+    if (
+      !exports.WEB3FORMS_ACCESS_KEY ||
+      exports.WEB3FORMS_ACCESS_KEY === 'YOUR_WEB3FORMS_ACCESS_KEY'
+    ) {
+      return {
+        ok: false,
+        error: 'Clé Web3Forms non configurée.',
+      };
+    }
+
+    const res = await fetch(WEB3FORMS_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        access_key: exports.WEB3FORMS_ACCESS_KEY,
+        subject: `✉️ [Contact Portfolio] Nouveau message de ${name}`,
+        from_name: name,
+        email,
+        replyto: email,
+        message,
+      }),
+    });
+
+    const data = await res.json();
+    if (res.ok && data.success !== false) {
+      return { ok: true };
+    }
+    return {
+      ok: false,
+      error: data.message || 'Erreur lors de l’envoi.',
+    };
+  } catch (e4) {
+    return {
+      ok: false,
+      error: 'Erreur réseau lors de l’envoi du message.',
+    };
+  }
+} exports.submitContactForm = submitContactForm;
+
 
 
   };

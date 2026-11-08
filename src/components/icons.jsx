@@ -269,3 +269,11 @@ export const Award = createLucideIcon(
     <circle cx="12" cy="8" r="6" />
   </>
 );
+
+export const Send = createLucideIcon(
+  <>
+    <path d="m22 2-7 20-4-9-9-4Z" />
+    <path d="M22 2 11 13" />
+  </>
+);
+

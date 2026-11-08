@@ -133,18 +133,13 @@ export default function HeroSection({ lang, onOpenCvModal }) {
                   <span>@espacelatent</span>
                 </a>
                 <a
-                  href={`mailto:${PROFILE.email}`}
-                  onClick={() =>
-                    notifyHighValueAction({
-                      actionType: 'contact_click',
-                      actionLabel: 'Clic sur E-mail Direct (Hero)',
-                      details: PROFILE.email,
-                    })
-                  }
+                  href="#contact"
                   className="inline-flex items-center gap-1.5 hover:text-slate-100 transition-colors"
                 >
                   <Mail className="w-4 h-4 text-slate-300" />
-                  <span>{PROFILE.email}</span>
+                  <span>
+                    {lang === 'fr' ? 'Formulaire de contact' : 'Contact form'}
+                  </span>
                 </a>
               </div>
             </div>

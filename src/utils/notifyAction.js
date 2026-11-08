@@ -149,3 +149,57 @@ export async function notifyHighValueAction({
   }
 }
 
+/**
+ * Submit the 3-field Contact Form directly via Web3Forms.
+ *
+ * @param {Object} form
+ * @param {string} form.name
+ * @param {string} form.email
+ * @param {string} form.message
+ * @returns {Promise<{ ok: boolean, error?: string }>}
+ */
+export async function submitContactForm({ name, email, message }) {
+  try {
+    if (
+      !WEB3FORMS_ACCESS_KEY ||
+      WEB3FORMS_ACCESS_KEY === 'YOUR_WEB3FORMS_ACCESS_KEY'
+    ) {
+      return {
+        ok: false,
+        error: 'Clé Web3Forms non configurée.',
+      };
+    }
+
+    const res = await fetch(WEB3FORMS_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: `✉️ [Contact Portfolio] Nouveau message de ${name}`,
+        from_name: name,
+        email,
+        replyto: email,
+        message,
+      }),
+    });
+
+    const data = await res.json();
+    if (res.ok && data.success !== false) {
+      return { ok: true };
+    }
+    return {
+      ok: false,
+      error: data.message || 'Erreur lors de l’envoi.',
+    };
+  } catch {
+    return {
+      ok: false,
+      error: 'Erreur réseau lors de l’envoi du message.',
+    };
+  }
+}
+
+
