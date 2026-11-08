@@ -11,6 +11,7 @@ const { transform } = require('sucrase');
 const rootDir = process.cwd();
 const distDir = path.join(rootDir, 'dist');
 const assetsDir = path.join(distDir, 'assets');
+const rootAssetsDir = path.join(rootDir, 'assets');
 const publicDir = path.join(rootDir, 'public');
 
 function copyDirRecursive(src, dest) {
@@ -60,7 +61,9 @@ function renderSsrHtml() {
       removeEventListener: () => {},
       scrollY: 0,
     };
-    global.document = { body: { style: {}, classList: { remove: () => {}, add: () => {} } } };
+    global.document = {
+      body: { style: {}, classList: { remove: () => {}, add: () => {} } },
+    };
 
     const Module = require('module');
     const origLoad = Module._load;
@@ -104,6 +107,7 @@ function buildApp() {
   const startTime = Date.now();
   fs.rmSync(distDir, { recursive: true, force: true });
   fs.mkdirSync(assetsDir, { recursive: true });
+  fs.mkdirSync(rootAssetsDir, { recursive: true });
 
   // 1. Copy public/ into dist/
   copyDirRecursive(publicDir, distDir);
@@ -192,7 +196,10 @@ function buildApp() {
 
   // 4. Pre-render SSR HTML into dist/index.html + link assets
   const ssrHtml = renderSsrHtml();
-  let indexHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
+  const templatePath = fs.existsSync(path.join(rootDir, 'src/template.html'))
+    ? path.join(rootDir, 'src/template.html')
+    : path.join(rootDir, 'index.html');
+  let indexHtml = fs.readFileSync(templatePath, 'utf8');
   indexHtml = indexHtml.replace(
     '<div id="root"></div>',
     `<div id="root">${ssrHtml}</div>`
@@ -202,9 +209,26 @@ function buildApp() {
     '<link rel="stylesheet" href="/assets/index.css" />\n    <script defer src="/assets/index.js"></script>'
   );
   fs.writeFileSync(path.join(distDir, 'index.html'), indexHtml, 'utf8');
-
-  // Add .nojekyll inside dist/ for GitHub Pages clean static serving
   fs.writeFileSync(path.join(distDir, '.nojekyll'), '', 'utf8');
+
+  // 5. Sync compiled entry + assets to repository root so GitHub Pages works
+  //    BOTH in "GitHub Actions" mode (dist/) AND "Deploy from a branch (main / root)" mode!
+  fs.writeFileSync(path.join(rootDir, 'index.html'), indexHtml, 'utf8');
+  fs.copyFileSync(cssOut, path.join(rootAssetsDir, 'index.css'));
+  fs.copyFileSync(jsOut, path.join(rootAssetsDir, 'index.js'));
+  fs.writeFileSync(path.join(rootDir, '.nojekyll'), '', 'utf8');
+  if (fs.existsSync(path.join(publicDir, 'favicon.svg'))) {
+    fs.copyFileSync(path.join(publicDir, 'favicon.svg'), path.join(rootDir, 'favicon.svg'));
+  }
+  if (
+    fs.existsSync(path.join(rootDir, 'images/prediction-action tsla.png')) &&
+    !fs.existsSync(path.join(rootDir, 'images/prediction-action-tsla.png'))
+  ) {
+    fs.copyFileSync(
+      path.join(rootDir, 'images/prediction-action tsla.png'),
+      path.join(rootDir, 'images/prediction-action-tsla.png')
+    );
+  }
 
   const elapsed = Date.now() - startTime;
   const cssSize = (fs.statSync(cssOut).size / 1024).toFixed(2);
@@ -291,4 +315,3 @@ if (args.includes('build')) {
   const port = portIdx !== -1 ? Number(args[portIdx + 1]) : 5173;
   startServer(port);
 }
-

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0b0f17" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded Badge Background -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bgGrad)" stroke="url(#accentGrad)" stroke-width="2.5" />
+
+  <!-- Subtle Latent Space Manifold Web (Top-Right & Bottom-Left) -->
+  <g stroke="#38bdf8" stroke-opacity="0.28" stroke-width="1.2">
+    <line x1="12" y1="14" x2="26" y2="10" />
+    <line x1="26" y1="10" x2="50" y2="14" />
+    <line x1="50" y1="14" x2="54" y2="28" />
+    <line x1="12" y1="50" x2="36" y2="54" />
+    <line x1="36" y1="54" x2="52" y2="48" />
+  </g>
+  <circle cx="12" cy="14" r="2" fill="#38bdf8" fill-opacity="0.55" />
+  <circle cx="26" cy="10" r="1.8" fill="#38bdf8" fill-opacity="0.45" />
+  <circle cx="50" cy="14" r="2.2" fill="#38bdf8" fill-opacity="0.7" />
+  <circle cx="12" cy="50" r="1.8" fill="#38bdf8" fill-opacity="0.45" />
+  <circle cx="36" cy="54" r="2" fill="#38bdf8" fill-opacity="0.55" />
+
+  <!-- Crisp "M" and "N" Monogram -->
+  <path
+    d="M13 43V21h4.6l6.4 11.2L30.4 21H35v22h-4.4V29.2l-5.5 9.5h-2.2l-5.5-9.5V43H13Z"
+    fill="#f8fafc"
+  />
+  <path
+    d="M39 43V21h4.5l7.5 13.4V21h4.4v22h-4.3L43.4 29.4V43H39Z"
+    fill="#38bdf8"
+  />
+</svg>
+
