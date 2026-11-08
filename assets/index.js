@@ -1204,8 +1204,8 @@ var _notifyAction = require('../utils/notifyAction');
                     _jsxruntime.jsx.call(void 0, _lucidereact.CheckCircle2, { className: "w-4 h-4 shrink-0"  ,} )
                     , _jsxruntime.jsx.call(void 0, 'span', { children: 
                       lang === 'fr'
-                        ? 'Message envoyé ! Je vous répondrai très vite. Merci'
-                        : 'Message sent! I will reply to you shortly. Thank you'
+                        ? 'Message envoyé ! Je vous répondrai très vite. Merci!'
+                        : 'Message sent! I will reply to you shortly. Thank you!'
                     })
                   ]})
                 )
