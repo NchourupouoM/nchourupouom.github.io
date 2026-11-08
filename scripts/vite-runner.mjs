@@ -50,6 +50,25 @@ function loadPublicEnv() {
   } else if (process.env.WEB3FORMS_ACCESS_KEY) {
     envVars.VITE_WEB3FORMS_ACCESS_KEY = process.env.WEB3FORMS_ACCESS_KEY;
   }
+
+  // Fallback for CI/GitHub Actions where .env is not present: preserve key from root assets/index.js if already built locally
+  if (!envVars.VITE_WEB3FORMS_ACCESS_KEY) {
+    const existingRootBundle = path.join(rootAssetsDir, 'index.js');
+    if (fs.existsSync(existingRootBundle)) {
+      const bundleHead = fs.readFileSync(existingRootBundle, 'utf8').slice(0, 600);
+      const match = bundleHead.match(/window\.__PORTFOLIO_ENV__\s*=\s*(\{[^}]+\})/);
+      if (match) {
+        try {
+          const parsed = JSON.parse(match[1]);
+          if (parsed.VITE_WEB3FORMS_ACCESS_KEY) {
+            envVars.VITE_WEB3FORMS_ACCESS_KEY = parsed.VITE_WEB3FORMS_ACCESS_KEY;
+          }
+        } catch {
+          // ignore
+        }
+      }
+    }
+  }
   return envVars;
 }
 

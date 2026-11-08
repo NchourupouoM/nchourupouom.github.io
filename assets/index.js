@@ -1,6 +1,6 @@
 (function() {
   window.process = { env: { NODE_ENV: "production" } };
-  window.__PORTFOLIO_ENV__ = {};
+  window.__PORTFOLIO_ENV__ = {"VITE_WEB3FORMS_ACCESS_KEY":"1595765a-a6de-42c3-95d3-8ed6fe3ac0e3"};
   const modules = {};
   const cache = {};
   function resolvePath(base, target) {
@@ -6409,6 +6409,7 @@ async function fetchGeoContext() {
   }
 } exports.notifyHighValueAction = notifyHighValueAction;
 
+
   };
   modules["./src/utils/notifyAction"] = function(module, exports, require) {
 "use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/**
@@ -6561,6 +6562,7 @@ async function fetchGeoContext() {
     // Fail silently so visitor UX is never interrupted
   }
 } exports.notifyHighValueAction = notifyHighValueAction;
+
 
   };
   requireModule('./src/main', '');
