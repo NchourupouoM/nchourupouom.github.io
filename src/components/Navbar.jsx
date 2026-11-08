@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FileText, Download, Menu, X, Sun, Moon } from 'lucide-react';
 import { PROFILE } from '../data/profile';
+import { notifyHighValueAction } from '../utils/notifyAction';
 
 export default function Navbar({ lang, setLang, theme, setTheme, onOpenCvModal }) {
   const [isShrunk, setIsShrunk] = useState(false);
@@ -170,6 +171,13 @@ export default function Navbar({ lang, setLang, theme, setTheme, onOpenCvModal }
             <a
               href={PROFILE.cvUrl}
               download="CV_Nchourupouo_mohamed.pdf"
+              onClick={() =>
+                notifyHighValueAction({
+                  actionType: 'cv_download',
+                  actionLabel: 'Téléchargement du CV PDF (Navbar)',
+                  details: 'CV_Nchourupouo_mohamed.pdf',
+                })
+              }
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-sky-500 hover:bg-sky-400 text-slate-950 transition-colors"
             >
               <Download className="w-3.5 h-3.5" />
@@ -240,6 +248,13 @@ export default function Navbar({ lang, setLang, theme, setTheme, onOpenCvModal }
             <a
               href={PROFILE.cvUrl}
               download="CV_Nchourupouo_mohamed.pdf"
+              onClick={() =>
+                notifyHighValueAction({
+                  actionType: 'cv_download',
+                  actionLabel: 'Téléchargement du CV PDF (Menu Mobile)',
+                  details: 'CV_Nchourupouo_mohamed.pdf',
+                })
+              }
               className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold bg-sky-500 text-slate-950"
             >
               <Download className="w-3.5 h-3.5" />

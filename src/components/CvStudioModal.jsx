@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { X, Download, ExternalLink, FileText } from 'lucide-react';
 import { PROFILE } from '../data/profile';
+import { notifyHighValueAction } from '../utils/notifyAction';
 
 export default function CvStudioModal({ isOpen, lang, onClose }) {
   useEffect(() => {
@@ -41,6 +42,13 @@ export default function CvStudioModal({ isOpen, lang, onClose }) {
             <a
               href={PROFILE.cvUrl}
               download="CV_Nchourupouo_mohamed.pdf"
+              onClick={() =>
+                notifyHighValueAction({
+                  actionType: 'cv_download',
+                  actionLabel: 'Téléchargement du CV PDF (Modale CV)',
+                  details: 'CV_Nchourupouo_mohamed.pdf',
+                })
+              }
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-sky-500 text-slate-950 hover:bg-sky-400 transition-colors"
             >
               <Download className="w-3.5 h-3.5" />

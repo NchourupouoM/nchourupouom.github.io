@@ -14,6 +14,45 @@ const assetsDir = path.join(distDir, 'assets');
 const rootAssetsDir = path.join(rootDir, 'assets');
 const publicDir = path.join(rootDir, 'public');
 
+function loadPublicEnv() {
+  const envVars = {};
+  const envPath = path.join(rootDir, '.env');
+  if (fs.existsSync(envPath)) {
+    const rawEnv = fs.readFileSync(envPath, 'utf8');
+    const lines = rawEnv.split(/\r?\n/);
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const eqIdx = trimmed.indexOf('=');
+      if (eqIdx !== -1) {
+        const key = trimmed.slice(0, eqIdx).trim();
+        const val = trimmed.slice(eqIdx + 1).trim().replace(/^['"]|['"]$/g, '');
+        if (
+          key === 'VITE_WEB3FORMS_ACCESS_KEY' ||
+          key === 'WEB3FORMS_ACCESS_KEY' ||
+          key === 'ACCESS_KEY'
+        ) {
+          envVars.VITE_WEB3FORMS_ACCESS_KEY = val;
+        }
+      }
+    }
+    if (!envVars.VITE_WEB3FORMS_ACCESS_KEY) {
+      const uuidMatch = rawEnv.match(
+        /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i
+      );
+      if (uuidMatch) {
+        envVars.VITE_WEB3FORMS_ACCESS_KEY = uuidMatch[0];
+      }
+    }
+  }
+  if (process.env.VITE_WEB3FORMS_ACCESS_KEY) {
+    envVars.VITE_WEB3FORMS_ACCESS_KEY = process.env.VITE_WEB3FORMS_ACCESS_KEY;
+  } else if (process.env.WEB3FORMS_ACCESS_KEY) {
+    envVars.VITE_WEB3FORMS_ACCESS_KEY = process.env.WEB3FORMS_ACCESS_KEY;
+  }
+  return envVars;
+}
+
 function copyDirRecursive(src, dest) {
   if (!fs.existsSync(src)) return;
   fs.mkdirSync(dest, { recursive: true });
@@ -140,9 +179,11 @@ function buildApp() {
   );
 
   const srcModules = collectSrcModules(path.join(rootDir, 'src'), rootDir);
+  const publicEnv = loadPublicEnv();
 
   let bundle = `(function() {\n`;
   bundle += `  window.process = { env: { NODE_ENV: "production" } };\n`;
+  bundle += `  window.__PORTFOLIO_ENV__ = ${JSON.stringify(publicEnv)};\n`;
   bundle += `  const modules = {};\n`;
   bundle += `  const cache = {};\n`;
   bundle += `  function resolvePath(base, target) {\n`;

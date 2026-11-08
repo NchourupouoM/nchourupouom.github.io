@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { PROFILE } from '../data/profile';
 import { LatentSpaceExplainer } from './LatentSpaceCanvas';
+import { notifyHighValueAction } from '../utils/notifyAction';
 
 export default function HeroSection({ lang, onOpenCvModal }) {
   const [avatarError, setAvatarError] = useState(false);
@@ -81,6 +82,13 @@ export default function HeroSection({ lang, onOpenCvModal }) {
                 <a
                   href={PROFILE.cvUrl}
                   download="CV_Nchourupouo_mohamed.pdf"
+                  onClick={() =>
+                    notifyHighValueAction({
+                      actionType: 'cv_download',
+                      actionLabel: 'Téléchargement du CV PDF (Hero)',
+                      details: 'CV_Nchourupouo_mohamed.pdf',
+                    })
+                  }
                   className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-slate-100 bg-slate-900/60 hover:bg-slate-900 border border-slate-800 transition-colors"
                 >
                   <Download className="w-4 h-4 text-slate-400" />
@@ -103,6 +111,13 @@ export default function HeroSection({ lang, onOpenCvModal }) {
                   href={PROFILE.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() =>
+                    notifyHighValueAction({
+                      actionType: 'contact_click',
+                      actionLabel: 'Clic sur le profil LinkedIn (Hero)',
+                      details: PROFILE.linkedin,
+                    })
+                  }
                   className="inline-flex items-center gap-1.5 hover:text-slate-100 transition-colors"
                 >
                   <Linkedin className="w-4 h-4 text-sky-400" />
@@ -119,6 +134,13 @@ export default function HeroSection({ lang, onOpenCvModal }) {
                 </a>
                 <a
                   href={`mailto:${PROFILE.email}`}
+                  onClick={() =>
+                    notifyHighValueAction({
+                      actionType: 'contact_click',
+                      actionLabel: 'Clic sur E-mail Direct (Hero)',
+                      details: PROFILE.email,
+                    })
+                  }
                   className="inline-flex items-center gap-1.5 hover:text-slate-100 transition-colors"
                 >
                   <Mail className="w-4 h-4 text-slate-300" />

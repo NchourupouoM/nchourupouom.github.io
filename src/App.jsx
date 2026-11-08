@@ -8,6 +8,7 @@ import FooterContact from './components/FooterContact';
 import StudioModal from './components/StudioModal';
 import CvStudioModal from './components/CvStudioModal';
 import { LatentSpaceBackground } from './components/LatentSpaceCanvas';
+import { notifyHighValueAction } from './utils/notifyAction';
 
 export default function App() {
   // Default language = English ('en'), Default theme = Light ('light')
@@ -15,6 +16,26 @@ export default function App() {
   const [theme, setTheme] = useState('light');
   const [activeStudioProject, setActiveStudioProject] = useState(null);
   const [cvModalOpen, setCvModalOpen] = useState(false);
+
+  const handleOpenCvModal = () => {
+    setCvModalOpen(true);
+    notifyHighValueAction({
+      actionType: 'cv_view',
+      actionLabel: 'Consultation du CV en ligne (Modale)',
+      details: 'CV_Nchourupouo_mohamed.pdf',
+    });
+  };
+
+  const handleSelectProject = (project) => {
+    setActiveStudioProject(project);
+    if (project) {
+      notifyHighValueAction({
+        actionType: 'project_inspect',
+        actionLabel: `Inspection du projet : ${project.title.fr}`,
+        details: project.id,
+      });
+    }
+  };
 
   useEffect(() => {
     try {
@@ -55,20 +76,20 @@ export default function App() {
           setLang={setLang}
           theme={theme}
           setTheme={setTheme}
-          onOpenCvModal={() => setCvModalOpen(true)}
+          onOpenCvModal={handleOpenCvModal}
         />
 
         <main>
           <HeroSection
             lang={lang}
-            onOpenCvModal={() => setCvModalOpen(true)}
+            onOpenCvModal={handleOpenCvModal}
           />
 
           <ExperienceTrace lang={lang} />
 
           <ProjectsBento
             lang={lang}
-            onSelectProject={(project) => setActiveStudioProject(project)}
+            onSelectProject={handleSelectProject}
           />
 
           <TechStackNodes lang={lang} />
@@ -76,7 +97,7 @@ export default function App() {
 
         <FooterContact
           lang={lang}
-          onOpenCvModal={() => setCvModalOpen(true)}
+          onOpenCvModal={handleOpenCvModal}
         />
       </div>
 

@@ -1,5 +1,6 @@
 (function() {
   window.process = { env: { NODE_ENV: "production" } };
+  window.__PORTFOLIO_ENV__ = {};
   const modules = {};
   const cache = {};
   function resolvePath(base, target) {
@@ -431,6 +432,7 @@ var _FooterContact = require('./components/FooterContact'); var _FooterContact2 
 var _StudioModal = require('./components/StudioModal'); var _StudioModal2 = _interopRequireDefault(_StudioModal);
 var _CvStudioModal = require('./components/CvStudioModal'); var _CvStudioModal2 = _interopRequireDefault(_CvStudioModal);
 var _LatentSpaceCanvas = require('./components/LatentSpaceCanvas');
+var _notifyAction = require('./utils/notifyAction');
 
  function App() {
   // Default language = English ('en'), Default theme = Light ('light')
@@ -438,6 +440,26 @@ var _LatentSpaceCanvas = require('./components/LatentSpaceCanvas');
   const [theme, setTheme] = _react.useState.call(void 0, 'light');
   const [activeStudioProject, setActiveStudioProject] = _react.useState.call(void 0, null);
   const [cvModalOpen, setCvModalOpen] = _react.useState.call(void 0, false);
+
+  const handleOpenCvModal = () => {
+    setCvModalOpen(true);
+    _notifyAction.notifyHighValueAction.call(void 0, {
+      actionType: 'cv_view',
+      actionLabel: 'Consultation du CV en ligne (Modale)',
+      details: 'CV_Nchourupouo_mohamed.pdf',
+    });
+  };
+
+  const handleSelectProject = (project) => {
+    setActiveStudioProject(project);
+    if (project) {
+      _notifyAction.notifyHighValueAction.call(void 0, {
+        actionType: 'project_inspect',
+        actionLabel: `Inspection du projet : ${project.title.fr}`,
+        details: project.id,
+      });
+    }
+  };
 
   _react.useEffect.call(void 0, () => {
     try {
@@ -478,20 +500,20 @@ var _LatentSpaceCanvas = require('./components/LatentSpaceCanvas');
           setLang: setLang,
           theme: theme,
           setTheme: setTheme,
-          onOpenCvModal: () => setCvModalOpen(true),}
+          onOpenCvModal: handleOpenCvModal,}
         )
 
         , _jsxruntime.jsxs.call(void 0, 'main', { children: [
           _jsxruntime.jsx.call(void 0, _HeroSection2.default, {
             lang: lang,
-            onOpenCvModal: () => setCvModalOpen(true),}
+            onOpenCvModal: handleOpenCvModal,}
           )
 
           , _jsxruntime.jsx.call(void 0, _ExperienceTrace2.default, { lang: lang,} )
 
           , _jsxruntime.jsx.call(void 0, _ProjectsBento2.default, {
             lang: lang,
-            onSelectProject: (project) => setActiveStudioProject(project),}
+            onSelectProject: handleSelectProject,}
           )
 
           , _jsxruntime.jsx.call(void 0, _TechStackNodes2.default, { lang: lang,} )
@@ -499,7 +521,7 @@ var _LatentSpaceCanvas = require('./components/LatentSpaceCanvas');
 
         , _jsxruntime.jsx.call(void 0, _FooterContact2.default, {
           lang: lang,
-          onOpenCvModal: () => setCvModalOpen(true),}
+          onOpenCvModal: handleOpenCvModal,}
         )
       ]})
 
@@ -530,6 +552,7 @@ var _FooterContact = require('./components/FooterContact'); var _FooterContact2 
 var _StudioModal = require('./components/StudioModal'); var _StudioModal2 = _interopRequireDefault(_StudioModal);
 var _CvStudioModal = require('./components/CvStudioModal'); var _CvStudioModal2 = _interopRequireDefault(_CvStudioModal);
 var _LatentSpaceCanvas = require('./components/LatentSpaceCanvas');
+var _notifyAction = require('./utils/notifyAction');
 
  function App() {
   // Default language = English ('en'), Default theme = Light ('light')
@@ -537,6 +560,26 @@ var _LatentSpaceCanvas = require('./components/LatentSpaceCanvas');
   const [theme, setTheme] = _react.useState.call(void 0, 'light');
   const [activeStudioProject, setActiveStudioProject] = _react.useState.call(void 0, null);
   const [cvModalOpen, setCvModalOpen] = _react.useState.call(void 0, false);
+
+  const handleOpenCvModal = () => {
+    setCvModalOpen(true);
+    _notifyAction.notifyHighValueAction.call(void 0, {
+      actionType: 'cv_view',
+      actionLabel: 'Consultation du CV en ligne (Modale)',
+      details: 'CV_Nchourupouo_mohamed.pdf',
+    });
+  };
+
+  const handleSelectProject = (project) => {
+    setActiveStudioProject(project);
+    if (project) {
+      _notifyAction.notifyHighValueAction.call(void 0, {
+        actionType: 'project_inspect',
+        actionLabel: `Inspection du projet : ${project.title.fr}`,
+        details: project.id,
+      });
+    }
+  };
 
   _react.useEffect.call(void 0, () => {
     try {
@@ -577,20 +620,20 @@ var _LatentSpaceCanvas = require('./components/LatentSpaceCanvas');
           setLang: setLang,
           theme: theme,
           setTheme: setTheme,
-          onOpenCvModal: () => setCvModalOpen(true),}
+          onOpenCvModal: handleOpenCvModal,}
         )
 
         , _jsxruntime.jsxs.call(void 0, 'main', { children: [
           _jsxruntime.jsx.call(void 0, _HeroSection2.default, {
             lang: lang,
-            onOpenCvModal: () => setCvModalOpen(true),}
+            onOpenCvModal: handleOpenCvModal,}
           )
 
           , _jsxruntime.jsx.call(void 0, _ExperienceTrace2.default, { lang: lang,} )
 
           , _jsxruntime.jsx.call(void 0, _ProjectsBento2.default, {
             lang: lang,
-            onSelectProject: (project) => setActiveStudioProject(project),}
+            onSelectProject: handleSelectProject,}
           )
 
           , _jsxruntime.jsx.call(void 0, _TechStackNodes2.default, { lang: lang,} )
@@ -598,7 +641,7 @@ var _LatentSpaceCanvas = require('./components/LatentSpaceCanvas');
 
         , _jsxruntime.jsx.call(void 0, _FooterContact2.default, {
           lang: lang,
-          onOpenCvModal: () => setCvModalOpen(true),}
+          onOpenCvModal: handleOpenCvModal,}
         )
       ]})
 
@@ -622,6 +665,7 @@ var _LatentSpaceCanvas = require('./components/LatentSpaceCanvas');
 "use strict";var _jsxruntime = require("react/jsx-runtime");Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _react = require('react'); var _react2 = _interopRequireDefault(_react);
 var _lucidereact = require('lucide-react');
 var _profile = require('../data/profile');
+var _notifyAction = require('../utils/notifyAction');
 
  function CvStudioModal({ isOpen, lang, onClose }) {
   _react.useEffect.call(void 0, () => {
@@ -662,6 +706,13 @@ var _profile = require('../data/profile');
             _jsxruntime.jsxs.call(void 0, 'a', {
               href: _profile.PROFILE.cvUrl,
               download: "CV_Nchourupouo_mohamed.pdf",
+              onClick: () =>
+                _notifyAction.notifyHighValueAction.call(void 0, {
+                  actionType: 'cv_download',
+                  actionLabel: 'Téléchargement du CV PDF (Modale CV)',
+                  details: 'CV_Nchourupouo_mohamed.pdf',
+                })
+              ,
               className: "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-sky-500 text-slate-950 hover:bg-sky-400 transition-colors"           ,
  children: [
               _jsxruntime.jsx.call(void 0, _lucidereact.Download, { className: "w-3.5 h-3.5" ,} )
@@ -705,6 +756,7 @@ var _profile = require('../data/profile');
 "use strict";var _jsxruntime = require("react/jsx-runtime");Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _react = require('react'); var _react2 = _interopRequireDefault(_react);
 var _lucidereact = require('lucide-react');
 var _profile = require('../data/profile');
+var _notifyAction = require('../utils/notifyAction');
 
  function CvStudioModal({ isOpen, lang, onClose }) {
   _react.useEffect.call(void 0, () => {
@@ -745,6 +797,13 @@ var _profile = require('../data/profile');
             _jsxruntime.jsxs.call(void 0, 'a', {
               href: _profile.PROFILE.cvUrl,
               download: "CV_Nchourupouo_mohamed.pdf",
+              onClick: () =>
+                _notifyAction.notifyHighValueAction.call(void 0, {
+                  actionType: 'cv_download',
+                  actionLabel: 'Téléchargement du CV PDF (Modale CV)',
+                  details: 'CV_Nchourupouo_mohamed.pdf',
+                })
+              ,
               className: "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-sky-500 text-slate-950 hover:bg-sky-400 transition-colors"           ,
  children: [
               _jsxruntime.jsx.call(void 0, _lucidereact.Download, { className: "w-3.5 h-3.5" ,} )
@@ -988,6 +1047,7 @@ var _profile = require('../data/profile');
 
 var _lucidereact = require('lucide-react');
 var _profile = require('../data/profile');
+var _notifyAction = require('../utils/notifyAction');
 
  function FooterContact({ lang, onOpenCvModal }) {
   return (
@@ -1011,6 +1071,13 @@ var _profile = require('../data/profile');
             , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex flex-wrap items-center gap-3 pt-2"    , children: [
               _jsxruntime.jsxs.call(void 0, 'a', {
                 href: `mailto:${_profile.PROFILE.email}`,
+                onClick: () =>
+                  _notifyAction.notifyHighValueAction.call(void 0, {
+                    actionType: 'contact_click',
+                    actionLabel: 'Clic sur E-mail Direct (Footer Contact)',
+                    details: _profile.PROFILE.email,
+                  })
+                ,
                 className: "inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold bg-sky-500 hover:bg-sky-400 text-slate-950 transition-colors"           ,
  children: [
                 _jsxruntime.jsx.call(void 0, _lucidereact.Mail, { className: "w-4 h-4" ,} )
@@ -1029,6 +1096,13 @@ var _profile = require('../data/profile');
               , _jsxruntime.jsxs.call(void 0, 'a', {
                 href: _profile.PROFILE.cvUrl,
                 download: "CV_Nchourupouo_mohamed.pdf",
+                onClick: () =>
+                  _notifyAction.notifyHighValueAction.call(void 0, {
+                    actionType: 'cv_download',
+                    actionLabel: 'Téléchargement du CV PDF (Footer Contact)',
+                    details: 'CV_Nchourupouo_mohamed.pdf',
+                  })
+                ,
                 className: "inline-flex items-center gap-2 px-3.5 py-2.5 rounded-lg text-sm font-medium bg-slate-900/70 hover:bg-slate-900 text-slate-300 border border-slate-800 transition-colors"             ,
  children: [
                 _jsxruntime.jsx.call(void 0, _lucidereact.Download, { className: "w-4 h-4" ,} )
@@ -1143,6 +1217,7 @@ var _profile = require('../data/profile');
 
 var _lucidereact = require('lucide-react');
 var _profile = require('../data/profile');
+var _notifyAction = require('../utils/notifyAction');
 
  function FooterContact({ lang, onOpenCvModal }) {
   return (
@@ -1166,6 +1241,13 @@ var _profile = require('../data/profile');
             , _jsxruntime.jsxs.call(void 0, 'div', { className: "flex flex-wrap items-center gap-3 pt-2"    , children: [
               _jsxruntime.jsxs.call(void 0, 'a', {
                 href: `mailto:${_profile.PROFILE.email}`,
+                onClick: () =>
+                  _notifyAction.notifyHighValueAction.call(void 0, {
+                    actionType: 'contact_click',
+                    actionLabel: 'Clic sur E-mail Direct (Footer Contact)',
+                    details: _profile.PROFILE.email,
+                  })
+                ,
                 className: "inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold bg-sky-500 hover:bg-sky-400 text-slate-950 transition-colors"           ,
  children: [
                 _jsxruntime.jsx.call(void 0, _lucidereact.Mail, { className: "w-4 h-4" ,} )
@@ -1184,6 +1266,13 @@ var _profile = require('../data/profile');
               , _jsxruntime.jsxs.call(void 0, 'a', {
                 href: _profile.PROFILE.cvUrl,
                 download: "CV_Nchourupouo_mohamed.pdf",
+                onClick: () =>
+                  _notifyAction.notifyHighValueAction.call(void 0, {
+                    actionType: 'cv_download',
+                    actionLabel: 'Téléchargement du CV PDF (Footer Contact)',
+                    details: 'CV_Nchourupouo_mohamed.pdf',
+                  })
+                ,
                 className: "inline-flex items-center gap-2 px-3.5 py-2.5 rounded-lg text-sm font-medium bg-slate-900/70 hover:bg-slate-900 text-slate-300 border border-slate-800 transition-colors"             ,
  children: [
                 _jsxruntime.jsx.call(void 0, _lucidereact.Download, { className: "w-4 h-4" ,} )
@@ -1298,6 +1387,7 @@ var _profile = require('../data/profile');
 var _lucidereact = require('lucide-react');
 var _profile = require('../data/profile');
 var _LatentSpaceCanvas = require('./LatentSpaceCanvas');
+var _notifyAction = require('../utils/notifyAction');
 
  function HeroSection({ lang, onOpenCvModal }) {
   const [avatarError, setAvatarError] = _react.useState.call(void 0, false);
@@ -1368,6 +1458,13 @@ var _LatentSpaceCanvas = require('./LatentSpaceCanvas');
                 , _jsxruntime.jsxs.call(void 0, 'a', {
                   href: _profile.PROFILE.cvUrl,
                   download: "CV_Nchourupouo_mohamed.pdf",
+                  onClick: () =>
+                    _notifyAction.notifyHighValueAction.call(void 0, {
+                      actionType: 'cv_download',
+                      actionLabel: 'Téléchargement du CV PDF (Hero)',
+                      details: 'CV_Nchourupouo_mohamed.pdf',
+                    })
+                  ,
                   className: "inline-flex items-center gap-2 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-slate-100 bg-slate-900/60 hover:bg-slate-900 border border-slate-800 transition-colors"              ,
  children: [
                   _jsxruntime.jsx.call(void 0, _lucidereact.Download, { className: "w-4 h-4 text-slate-400"  ,} )
@@ -1390,6 +1487,13 @@ var _LatentSpaceCanvas = require('./LatentSpaceCanvas');
                   href: _profile.PROFILE.linkedin,
                   target: "_blank",
                   rel: "noopener noreferrer" ,
+                  onClick: () =>
+                    _notifyAction.notifyHighValueAction.call(void 0, {
+                      actionType: 'contact_click',
+                      actionLabel: 'Clic sur le profil LinkedIn (Hero)',
+                      details: _profile.PROFILE.linkedin,
+                    })
+                  ,
                   className: "inline-flex items-center gap-1.5 hover:text-slate-100 transition-colors"    ,
  children: [
                   _jsxruntime.jsx.call(void 0, _lucidereact.Linkedin, { className: "w-4 h-4 text-sky-400"  ,} )
@@ -1406,6 +1510,13 @@ var _LatentSpaceCanvas = require('./LatentSpaceCanvas');
                 ]})
                 , _jsxruntime.jsxs.call(void 0, 'a', {
                   href: `mailto:${_profile.PROFILE.email}`,
+                  onClick: () =>
+                    _notifyAction.notifyHighValueAction.call(void 0, {
+                      actionType: 'contact_click',
+                      actionLabel: 'Clic sur E-mail Direct (Hero)',
+                      details: _profile.PROFILE.email,
+                    })
+                  ,
                   className: "inline-flex items-center gap-1.5 hover:text-slate-100 transition-colors"    ,
  children: [
                   _jsxruntime.jsx.call(void 0, _lucidereact.Mail, { className: "w-4 h-4 text-slate-300"  ,} )
@@ -1505,6 +1616,7 @@ var _LatentSpaceCanvas = require('./LatentSpaceCanvas');
 var _lucidereact = require('lucide-react');
 var _profile = require('../data/profile');
 var _LatentSpaceCanvas = require('./LatentSpaceCanvas');
+var _notifyAction = require('../utils/notifyAction');
 
  function HeroSection({ lang, onOpenCvModal }) {
   const [avatarError, setAvatarError] = _react.useState.call(void 0, false);
@@ -1575,6 +1687,13 @@ var _LatentSpaceCanvas = require('./LatentSpaceCanvas');
                 , _jsxruntime.jsxs.call(void 0, 'a', {
                   href: _profile.PROFILE.cvUrl,
                   download: "CV_Nchourupouo_mohamed.pdf",
+                  onClick: () =>
+                    _notifyAction.notifyHighValueAction.call(void 0, {
+                      actionType: 'cv_download',
+                      actionLabel: 'Téléchargement du CV PDF (Hero)',
+                      details: 'CV_Nchourupouo_mohamed.pdf',
+                    })
+                  ,
                   className: "inline-flex items-center gap-2 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-slate-100 bg-slate-900/60 hover:bg-slate-900 border border-slate-800 transition-colors"              ,
  children: [
                   _jsxruntime.jsx.call(void 0, _lucidereact.Download, { className: "w-4 h-4 text-slate-400"  ,} )
@@ -1597,6 +1716,13 @@ var _LatentSpaceCanvas = require('./LatentSpaceCanvas');
                   href: _profile.PROFILE.linkedin,
                   target: "_blank",
                   rel: "noopener noreferrer" ,
+                  onClick: () =>
+                    _notifyAction.notifyHighValueAction.call(void 0, {
+                      actionType: 'contact_click',
+                      actionLabel: 'Clic sur le profil LinkedIn (Hero)',
+                      details: _profile.PROFILE.linkedin,
+                    })
+                  ,
                   className: "inline-flex items-center gap-1.5 hover:text-slate-100 transition-colors"    ,
  children: [
                   _jsxruntime.jsx.call(void 0, _lucidereact.Linkedin, { className: "w-4 h-4 text-sky-400"  ,} )
@@ -1613,6 +1739,13 @@ var _LatentSpaceCanvas = require('./LatentSpaceCanvas');
                 ]})
                 , _jsxruntime.jsxs.call(void 0, 'a', {
                   href: `mailto:${_profile.PROFILE.email}`,
+                  onClick: () =>
+                    _notifyAction.notifyHighValueAction.call(void 0, {
+                      actionType: 'contact_click',
+                      actionLabel: 'Clic sur E-mail Direct (Hero)',
+                      details: _profile.PROFILE.email,
+                    })
+                  ,
                   className: "inline-flex items-center gap-1.5 hover:text-slate-100 transition-colors"    ,
  children: [
                   _jsxruntime.jsx.call(void 0, _lucidereact.Mail, { className: "w-4 h-4 text-slate-300"  ,} )
@@ -2356,6 +2489,7 @@ var _lucidereact = require('lucide-react');
 "use strict";var _jsxruntime = require("react/jsx-runtime");Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _react = require('react'); var _react2 = _interopRequireDefault(_react);
 var _lucidereact = require('lucide-react');
 var _profile = require('../data/profile');
+var _notifyAction = require('../utils/notifyAction');
 
  function Navbar({ lang, setLang, theme, setTheme, onOpenCvModal }) {
   const [isShrunk, setIsShrunk] = _react.useState.call(void 0, false);
@@ -2525,6 +2659,13 @@ var _profile = require('../data/profile');
             _jsxruntime.jsxs.call(void 0, 'a', {
               href: _profile.PROFILE.cvUrl,
               download: "CV_Nchourupouo_mohamed.pdf",
+              onClick: () =>
+                _notifyAction.notifyHighValueAction.call(void 0, {
+                  actionType: 'cv_download',
+                  actionLabel: 'Téléchargement du CV PDF (Navbar)',
+                  details: 'CV_Nchourupouo_mohamed.pdf',
+                })
+              ,
               className: "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-sky-500 hover:bg-sky-400 text-slate-950 transition-colors"           ,
  children: [
               _jsxruntime.jsx.call(void 0, _lucidereact.Download, { className: "w-3.5 h-3.5" ,} )
@@ -2595,6 +2736,13 @@ var _profile = require('../data/profile');
             , _jsxruntime.jsxs.call(void 0, 'a', {
               href: _profile.PROFILE.cvUrl,
               download: "CV_Nchourupouo_mohamed.pdf",
+              onClick: () =>
+                _notifyAction.notifyHighValueAction.call(void 0, {
+                  actionType: 'cv_download',
+                  actionLabel: 'Téléchargement du CV PDF (Menu Mobile)',
+                  details: 'CV_Nchourupouo_mohamed.pdf',
+                })
+              ,
               className: "flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold bg-sky-500 text-slate-950"           ,
  children: [
               _jsxruntime.jsx.call(void 0, _lucidereact.Download, { className: "w-3.5 h-3.5" ,} )
@@ -2612,6 +2760,7 @@ var _profile = require('../data/profile');
 "use strict";var _jsxruntime = require("react/jsx-runtime");Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _react = require('react'); var _react2 = _interopRequireDefault(_react);
 var _lucidereact = require('lucide-react');
 var _profile = require('../data/profile');
+var _notifyAction = require('../utils/notifyAction');
 
  function Navbar({ lang, setLang, theme, setTheme, onOpenCvModal }) {
   const [isShrunk, setIsShrunk] = _react.useState.call(void 0, false);
@@ -2781,6 +2930,13 @@ var _profile = require('../data/profile');
             _jsxruntime.jsxs.call(void 0, 'a', {
               href: _profile.PROFILE.cvUrl,
               download: "CV_Nchourupouo_mohamed.pdf",
+              onClick: () =>
+                _notifyAction.notifyHighValueAction.call(void 0, {
+                  actionType: 'cv_download',
+                  actionLabel: 'Téléchargement du CV PDF (Navbar)',
+                  details: 'CV_Nchourupouo_mohamed.pdf',
+                })
+              ,
               className: "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-sky-500 hover:bg-sky-400 text-slate-950 transition-colors"           ,
  children: [
               _jsxruntime.jsx.call(void 0, _lucidereact.Download, { className: "w-3.5 h-3.5" ,} )
@@ -2851,6 +3007,13 @@ var _profile = require('../data/profile');
             , _jsxruntime.jsxs.call(void 0, 'a', {
               href: _profile.PROFILE.cvUrl,
               download: "CV_Nchourupouo_mohamed.pdf",
+              onClick: () =>
+                _notifyAction.notifyHighValueAction.call(void 0, {
+                  actionType: 'cv_download',
+                  actionLabel: 'Téléchargement du CV PDF (Menu Mobile)',
+                  details: 'CV_Nchourupouo_mohamed.pdf',
+                })
+              ,
               className: "flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold bg-sky-500 text-slate-950"           ,
  children: [
               _jsxruntime.jsx.call(void 0, _lucidereact.Download, { className: "w-3.5 h-3.5" ,} )
@@ -6092,6 +6255,312 @@ _client2.default.createRoot(document.getElementById('root')).render(
   })
 );
 
+
+  };
+  modules["./src/utils/notifyAction.js"] = function(module, exports, require) {
+"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/**
+ * High-Value Action Email Notification via Web3Forms (https://web3forms.com)
+ *
+ * Triggers a clean email alert to Mohamed (nchourupouom@gmail.com) ONLY when a
+ * visitor performs a high-intent action (CV download, CV modal view, direct
+ * contact click, or flagship project inspection), with per-session deduplication
+ * so the inbox is never spammed.
+ */
+
+// ---------------------------------------------------------------------------
+// Collez votre clé d'accès publique Web3Forms ici (obtenue gratuitement sur
+// https://web3forms.com en entrant nchourupouom@gmail.com) ou définissez
+// VITE_WEB3FORMS_ACCESS_KEY dans votre fichier .env avant `npm run build`.
+// ---------------------------------------------------------------------------
+ const WEB3FORMS_ACCESS_KEY =
+  (typeof window !== 'undefined' &&
+    window.__PORTFOLIO_ENV__ &&
+    window.__PORTFOLIO_ENV__.VITE_WEB3FORMS_ACCESS_KEY) ||
+  'YOUR_WEB3FORMS_ACCESS_KEY'; exports.WEB3FORMS_ACCESS_KEY = WEB3FORMS_ACCESS_KEY;
+
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+
+function isBotOrAutomated() {
+  if (typeof navigator === 'undefined') return true;
+  if (navigator.webdriver) return true;
+  const ua = (navigator.userAgent || '').toLowerCase();
+  return /bot|crawl|spider|slurp|lighthouse|headless|facebookexternalhit|preview/i.test(
+    ua
+  );
+}
+
+function isLocalhost() {
+  if (typeof window === 'undefined') return true;
+  const host = window.location.hostname;
+  return host === 'localhost' || host === '127.0.0.1' || host === '0.0.0.0';
+}
+
+async function fetchGeoContext() {
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 1800);
+    const res = await fetch('https://ipapi.co/json/', {
+      signal: controller.signal,
+    });
+    clearTimeout(timer);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return {
+      city: data.city || 'Unknown',
+      region: data.region || '',
+      country: data.country_name || data.country || 'Unknown',
+      org: data.org || '',
+    };
+  } catch (e) {
+    return null;
+  }
+}
+
+/**
+ * Send a high-value action notification email via Web3Forms.
+ *
+ * @param {Object} params
+ * @param {'cv_download' | 'cv_view' | 'contact_click' | 'project_inspect'} params.actionType
+ * @param {string} params.actionLabel - Human-readable description of the action
+ * @param {string} [params.details] - Optional extra context (e.g., project title or link clicked)
+ */
+ async function notifyHighValueAction({
+  actionType,
+  actionLabel,
+  details = '',
+}) {
+  try {
+    if (typeof window === 'undefined') return;
+    if (isBotOrAutomated()) return;
+
+    // Skip if key is not configured yet
+    if (
+      !exports.WEB3FORMS_ACCESS_KEY ||
+      exports.WEB3FORMS_ACCESS_KEY === 'YOUR_WEB3FORMS_ACCESS_KEY'
+    ) {
+      return;
+    }
+
+    // Ignore localhost unless explicitly testing with ?debug_notify=1
+    const allowLocal =
+      window.location.search &&
+      window.location.search.includes('debug_notify=1');
+    if (isLocalhost() && !allowLocal) {
+      return;
+    }
+
+    // Deduplicate per session so the same visitor doesn't trigger multiple emails for the same action
+    const dedupeKey = `portfolio_hv_notified_${actionType}_${details || 'default'}`;
+    try {
+      if (window.sessionStorage.getItem(dedupeKey)) {
+        return;
+      }
+      window.sessionStorage.setItem(dedupeKey, String(Date.now()));
+    } catch (e2) {
+      // Ignore sessionStorage restrictions
+    }
+
+    const geo = await fetchGeoContext();
+    const locationStr = geo
+      ? `${geo.city}${geo.region ? `, ${geo.region}` : ''} — ${geo.country}${
+          geo.org ? ` (${geo.org})` : ''
+        }`
+      : 'Non déterminée (Protection IP active)';
+
+    const referrer =
+      (typeof document !== 'undefined' && document.referrer) ||
+      'Accès direct (URL ou favori)';
+    const timeZone =
+      (typeof Intl !== 'undefined' &&
+        Intl.DateTimeFormat().resolvedOptions().timeZone) ||
+      'UTC';
+    const screenRes = `${window.innerWidth}x${window.innerHeight}`;
+    const browserLang = navigator.language || 'en';
+    const timestamp = new Date().toISOString();
+
+    const payload = {
+      access_key: exports.WEB3FORMS_ACCESS_KEY,
+      subject: `🎯 [Portfolio Mohamed] ${actionLabel}${
+        _optionalChain([geo, 'optionalAccess', _ => _.country]) ? ` (${geo.city}, ${geo.country})` : ''
+      }`,
+      from_name: 'Portfolio Nchourupouo Mohamed',
+      Action: actionLabel,
+      Détails: details || actionType,
+      Localisation: locationStr,
+      Provenance_Referrer: referrer,
+      Fuseau_Horaire: timeZone,
+      Langue_Navigateur: browserLang,
+      Ecran: screenRes,
+      Appareil_UserAgent: navigator.userAgent,
+      Date_UTC: timestamp,
+    };
+
+    await fetch(WEB3FORMS_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    });
+  } catch (e3) {
+    // Fail silently so visitor UX is never interrupted
+  }
+} exports.notifyHighValueAction = notifyHighValueAction;
+
+  };
+  modules["./src/utils/notifyAction"] = function(module, exports, require) {
+"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/**
+ * High-Value Action Email Notification via Web3Forms (https://web3forms.com)
+ *
+ * Triggers a clean email alert to Mohamed (nchourupouom@gmail.com) ONLY when a
+ * visitor performs a high-intent action (CV download, CV modal view, direct
+ * contact click, or flagship project inspection), with per-session deduplication
+ * so the inbox is never spammed.
+ */
+
+// ---------------------------------------------------------------------------
+// Collez votre clé d'accès publique Web3Forms ici (obtenue gratuitement sur
+// https://web3forms.com en entrant nchourupouom@gmail.com) ou définissez
+// VITE_WEB3FORMS_ACCESS_KEY dans votre fichier .env avant `npm run build`.
+// ---------------------------------------------------------------------------
+ const WEB3FORMS_ACCESS_KEY =
+  (typeof window !== 'undefined' &&
+    window.__PORTFOLIO_ENV__ &&
+    window.__PORTFOLIO_ENV__.VITE_WEB3FORMS_ACCESS_KEY) ||
+  'YOUR_WEB3FORMS_ACCESS_KEY'; exports.WEB3FORMS_ACCESS_KEY = WEB3FORMS_ACCESS_KEY;
+
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+
+function isBotOrAutomated() {
+  if (typeof navigator === 'undefined') return true;
+  if (navigator.webdriver) return true;
+  const ua = (navigator.userAgent || '').toLowerCase();
+  return /bot|crawl|spider|slurp|lighthouse|headless|facebookexternalhit|preview/i.test(
+    ua
+  );
+}
+
+function isLocalhost() {
+  if (typeof window === 'undefined') return true;
+  const host = window.location.hostname;
+  return host === 'localhost' || host === '127.0.0.1' || host === '0.0.0.0';
+}
+
+async function fetchGeoContext() {
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 1800);
+    const res = await fetch('https://ipapi.co/json/', {
+      signal: controller.signal,
+    });
+    clearTimeout(timer);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return {
+      city: data.city || 'Unknown',
+      region: data.region || '',
+      country: data.country_name || data.country || 'Unknown',
+      org: data.org || '',
+    };
+  } catch (e) {
+    return null;
+  }
+}
+
+/**
+ * Send a high-value action notification email via Web3Forms.
+ *
+ * @param {Object} params
+ * @param {'cv_download' | 'cv_view' | 'contact_click' | 'project_inspect'} params.actionType
+ * @param {string} params.actionLabel - Human-readable description of the action
+ * @param {string} [params.details] - Optional extra context (e.g., project title or link clicked)
+ */
+ async function notifyHighValueAction({
+  actionType,
+  actionLabel,
+  details = '',
+}) {
+  try {
+    if (typeof window === 'undefined') return;
+    if (isBotOrAutomated()) return;
+
+    // Skip if key is not configured yet
+    if (
+      !exports.WEB3FORMS_ACCESS_KEY ||
+      exports.WEB3FORMS_ACCESS_KEY === 'YOUR_WEB3FORMS_ACCESS_KEY'
+    ) {
+      return;
+    }
+
+    // Ignore localhost unless explicitly testing with ?debug_notify=1
+    const allowLocal =
+      window.location.search &&
+      window.location.search.includes('debug_notify=1');
+    if (isLocalhost() && !allowLocal) {
+      return;
+    }
+
+    // Deduplicate per session so the same visitor doesn't trigger multiple emails for the same action
+    const dedupeKey = `portfolio_hv_notified_${actionType}_${details || 'default'}`;
+    try {
+      if (window.sessionStorage.getItem(dedupeKey)) {
+        return;
+      }
+      window.sessionStorage.setItem(dedupeKey, String(Date.now()));
+    } catch (e2) {
+      // Ignore sessionStorage restrictions
+    }
+
+    const geo = await fetchGeoContext();
+    const locationStr = geo
+      ? `${geo.city}${geo.region ? `, ${geo.region}` : ''} — ${geo.country}${
+          geo.org ? ` (${geo.org})` : ''
+        }`
+      : 'Non déterminée (Protection IP active)';
+
+    const referrer =
+      (typeof document !== 'undefined' && document.referrer) ||
+      'Accès direct (URL ou favori)';
+    const timeZone =
+      (typeof Intl !== 'undefined' &&
+        Intl.DateTimeFormat().resolvedOptions().timeZone) ||
+      'UTC';
+    const screenRes = `${window.innerWidth}x${window.innerHeight}`;
+    const browserLang = navigator.language || 'en';
+    const timestamp = new Date().toISOString();
+
+    const payload = {
+      access_key: exports.WEB3FORMS_ACCESS_KEY,
+      subject: `🎯 [Portfolio Mohamed] ${actionLabel}${
+        _optionalChain([geo, 'optionalAccess', _ => _.country]) ? ` (${geo.city}, ${geo.country})` : ''
+      }`,
+      from_name: 'Portfolio Nchourupouo Mohamed',
+      Action: actionLabel,
+      Détails: details || actionType,
+      Localisation: locationStr,
+      Provenance_Referrer: referrer,
+      Fuseau_Horaire: timeZone,
+      Langue_Navigateur: browserLang,
+      Ecran: screenRes,
+      Appareil_UserAgent: navigator.userAgent,
+      Date_UTC: timestamp,
+    };
+
+    await fetch(WEB3FORMS_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    });
+  } catch (e3) {
+    // Fail silently so visitor UX is never interrupted
+  }
+} exports.notifyHighValueAction = notifyHighValueAction;
 
   };
   requireModule('./src/main', '');

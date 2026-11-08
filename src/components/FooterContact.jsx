@@ -11,6 +11,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { PROFILE } from '../data/profile';
+import { notifyHighValueAction } from '../utils/notifyAction';
 
 export default function FooterContact({ lang, onOpenCvModal }) {
   return (
@@ -34,6 +35,13 @@ export default function FooterContact({ lang, onOpenCvModal }) {
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <a
                 href={`mailto:${PROFILE.email}`}
+                onClick={() =>
+                  notifyHighValueAction({
+                    actionType: 'contact_click',
+                    actionLabel: 'Clic sur E-mail Direct (Footer Contact)',
+                    details: PROFILE.email,
+                  })
+                }
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold bg-sky-500 hover:bg-sky-400 text-slate-950 transition-colors"
               >
                 <Mail className="w-4 h-4" />
@@ -52,6 +60,13 @@ export default function FooterContact({ lang, onOpenCvModal }) {
               <a
                 href={PROFILE.cvUrl}
                 download="CV_Nchourupouo_mohamed.pdf"
+                onClick={() =>
+                  notifyHighValueAction({
+                    actionType: 'cv_download',
+                    actionLabel: 'Téléchargement du CV PDF (Footer Contact)',
+                    details: 'CV_Nchourupouo_mohamed.pdf',
+                  })
+                }
                 className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-lg text-sm font-medium bg-slate-900/70 hover:bg-slate-900 text-slate-300 border border-slate-800 transition-colors"
               >
                 <Download className="w-4 h-4" />
