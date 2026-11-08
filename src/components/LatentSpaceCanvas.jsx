@@ -71,8 +71,8 @@ export function LatentSpaceBackground({ theme }) {
       ctx.clearRect(0, 0, width, height);
 
       const isLight = theme === 'light';
-      const baseRgb = isLight ? '2, 132, 199' : '56, 189, 248';
-      const secondaryRgb = isLight ? '15, 23, 42' : '148, 163, 184';
+      const baseRgb = isLight ? '2, 132, 199' : '212, 163, 115';
+      const secondaryRgb = isLight ? '15, 23, 42' : '168, 162, 154';
 
       // Update positions
       for (let i = 0; i < nodes.length; i++) {
@@ -94,7 +94,7 @@ export function LatentSpaceBackground({ theme }) {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < maxDist) {
-            const alpha = (1 - dist / maxDist) * (isLight ? 0.14 : 0.16);
+            const alpha = (1 - dist / maxDist) * (isLight ? 0.14 : 0.11);
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -109,7 +109,7 @@ export function LatentSpaceBackground({ theme }) {
         const mdy = a.y - mouse.y;
         const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
         if (mDist < mouseRadius) {
-          const mAlpha = (1 - mDist / mouseRadius) * (isLight ? 0.28 : 0.32);
+          const mAlpha = (1 - mDist / mouseRadius) * (isLight ? 0.28 : 0.22);
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(mouse.x, mouse.y);

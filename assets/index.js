@@ -1204,8 +1204,8 @@ var _notifyAction = require('../utils/notifyAction');
                     _jsxruntime.jsx.call(void 0, _lucidereact.CheckCircle2, { className: "w-4 h-4 shrink-0"  ,} )
                     , _jsxruntime.jsx.call(void 0, 'span', { children: 
                       lang === 'fr'
-                        ? 'Message envoyé ! Je vous répondrai très vite. Merci!'
-                        : 'Message sent! I will reply to you shortly. Thank you!'
+                        ? 'Message envoyé ! Je vous répondrai très vite.'
+                        : 'Message sent! I will reply to you shortly.'
                     })
                   ]})
                 )
@@ -2199,8 +2199,8 @@ var _lucidereact = require('lucide-react');
       ctx.clearRect(0, 0, width, height);
 
       const isLight = theme === 'light';
-      const baseRgb = isLight ? '2, 132, 199' : '56, 189, 248';
-      const secondaryRgb = isLight ? '15, 23, 42' : '148, 163, 184';
+      const baseRgb = isLight ? '2, 132, 199' : '212, 163, 115';
+      const secondaryRgb = isLight ? '15, 23, 42' : '168, 162, 154';
 
       // Update positions
       for (let i = 0; i < nodes.length; i++) {
@@ -2222,7 +2222,7 @@ var _lucidereact = require('lucide-react');
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < maxDist) {
-            const alpha = (1 - dist / maxDist) * (isLight ? 0.14 : 0.16);
+            const alpha = (1 - dist / maxDist) * (isLight ? 0.14 : 0.11);
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -2237,7 +2237,7 @@ var _lucidereact = require('lucide-react');
         const mdy = a.y - mouse.y;
         const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
         if (mDist < mouseRadius) {
-          const mAlpha = (1 - mDist / mouseRadius) * (isLight ? 0.28 : 0.32);
+          const mAlpha = (1 - mDist / mouseRadius) * (isLight ? 0.28 : 0.22);
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(mouse.x, mouse.y);
@@ -2526,8 +2526,8 @@ var _lucidereact = require('lucide-react');
       ctx.clearRect(0, 0, width, height);
 
       const isLight = theme === 'light';
-      const baseRgb = isLight ? '2, 132, 199' : '56, 189, 248';
-      const secondaryRgb = isLight ? '15, 23, 42' : '148, 163, 184';
+      const baseRgb = isLight ? '2, 132, 199' : '212, 163, 115';
+      const secondaryRgb = isLight ? '15, 23, 42' : '168, 162, 154';
 
       // Update positions
       for (let i = 0; i < nodes.length; i++) {
@@ -2549,7 +2549,7 @@ var _lucidereact = require('lucide-react');
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < maxDist) {
-            const alpha = (1 - dist / maxDist) * (isLight ? 0.14 : 0.16);
+            const alpha = (1 - dist / maxDist) * (isLight ? 0.14 : 0.11);
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -2564,7 +2564,7 @@ var _lucidereact = require('lucide-react');
         const mdy = a.y - mouse.y;
         const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
         if (mDist < mouseRadius) {
-          const mAlpha = (1 - mDist / mouseRadius) * (isLight ? 0.28 : 0.32);
+          const mAlpha = (1 - mDist / mouseRadius) * (isLight ? 0.28 : 0.22);
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(mouse.x, mouse.y);

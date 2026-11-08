@@ -23,20 +23,20 @@
 }
 
 /* =========================================================
-   DARK THEME & LIGHT THEME (Editorial Paper)
+   DARK THEME (Natural Warm Matte Carbon) & LIGHT THEME (Editorial Paper)
    ========================================================= */
 .theme-dark {
-  --bg-page: #0b0f17;
-  --bg-card: rgba(17, 24, 39, 0.88);
-  --bg-subtle: #0f172a;
-  --border-color: #1e293b;
-  --border-hover: #334155;
-  --text-heading: #f8fafc;
-  --text-primary: #e2e8f0;
-  --text-muted: #94a3b8;
-  --accent-color: #38bdf8;
-  background-color: #0b0f17;
-  color: #94a3b8;
+  --bg-page: #111110;
+  --bg-card: #181816;
+  --bg-subtle: #201f1d;
+  --border-color: #2a2926;
+  --border-hover: #3d3b36;
+  --text-heading: #f2efe9;
+  --text-primary: #d6d2c9;
+  --text-muted: #9a958c;
+  --accent-color: #d4a373;
+  background-color: #111110;
+  color: #9a958c;
 }
 
 .theme-light {
@@ -81,6 +81,114 @@
     text-transform: uppercase;
     color: var(--accent-color);
   }
+}
+
+/* =========================================================
+   Natural Dark Theme adaptations (scoped strictly to [data-theme="dark"])
+   Zero cold navy/neon-cyan AI look — warm matte carbon, stone & sand-ochre
+   ========================================================= */
+[data-theme="dark"] .bg-\[\#0b0f17\],
+[data-theme="dark"] .bg-\[\#0b0f17\]\/90,
+[data-theme="dark"] .bg-\[\#0b0f17\]\/88,
+[data-theme="dark"] .bg-\[\#0b0f17\]\/80,
+[data-theme="dark"] .bg-\[\#0b0f17\]\/70,
+[data-theme="dark"] .bg-\[\#0b0f17\]\/60 {
+  background-color: rgba(17, 17, 16, 0.90) !important;
+}
+
+[data-theme="dark"] .bg-\[\#111827\] {
+  background-color: #181816 !important;
+}
+
+[data-theme="dark"] .bg-slate-950,
+[data-theme="dark"] .bg-slate-950\/90 {
+  background-color: #141413 !important;
+}
+
+[data-theme="dark"] .bg-slate-900,
+[data-theme="dark"] .bg-slate-900\/95,
+[data-theme="dark"] .bg-slate-900\/90,
+[data-theme="dark"] .bg-slate-900\/70,
+[data-theme="dark"] .bg-slate-900\/60 {
+  background-color: #201f1d !important;
+}
+
+[data-theme="dark"] .bg-slate-800 {
+  background-color: #2a2926 !important;
+}
+
+[data-theme="dark"] .border-slate-800,
+[data-theme="dark"] .border-slate-800\/90,
+[data-theme="dark"] .border-slate-800\/80,
+[data-theme="dark"] .border-slate-800\/70,
+[data-theme="dark"] .border-slate-800\/40,
+[data-theme="dark"] .border-slate-700,
+[data-theme="dark"] .border-slate-700\/80 {
+  border-color: #2a2926 !important;
+}
+
+[data-theme="dark"] .divide-slate-800\/80 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #2a2926 !important;
+}
+
+[data-theme="dark"] .text-slate-50,
+[data-theme="dark"] .text-slate-100 {
+  color: #f2efe9 !important;
+}
+
+[data-theme="dark"] .text-slate-200,
+[data-theme="dark"] .text-slate-300 {
+  color: #d6d2c9 !important;
+}
+
+[data-theme="dark"] .text-slate-400,
+[data-theme="dark"] .text-slate-500 {
+  color: #9a958c !important;
+}
+
+[data-theme="dark"] .placeholder-slate-500::placeholder {
+  color: #6e6a63 !important;
+}
+
+[data-theme="dark"] .text-sky-400 {
+  color: #d4a373 !important;
+}
+
+[data-theme="dark"] .bg-sky-400\/80 {
+  background-color: rgba(212, 163, 115, 0.85) !important;
+}
+
+[data-theme="dark"] .bg-sky-500 {
+  background-color: #e8e4dc !important;
+  color: #111110 !important;
+}
+
+[data-theme="dark"] .hover\:bg-sky-400:hover {
+  background-color: #f5f3ef !important;
+  color: #111110 !important;
+}
+
+[data-theme="dark"] .hover\:text-sky-300:hover,
+[data-theme="dark"] .hover\:text-sky-400:hover,
+[data-theme="dark"] .group:hover .group-hover\:text-sky-400 {
+  color: #e3b78a !important;
+}
+
+[data-theme="dark"] .focus\:border-sky-400:focus {
+  border-color: #d4a373 !important;
+}
+
+[data-theme="dark"] .hover\:text-slate-100:hover,
+[data-theme="dark"] .hover\:text-slate-50:hover,
+[data-theme="dark"] .hover\:text-slate-200:hover,
+[data-theme="dark"] .group:hover .group-hover\:text-slate-50 {
+  color: #f2efe9 !important;
+}
+
+[data-theme="dark"] .hover\:bg-slate-800:hover,
+[data-theme="dark"] .hover\:bg-slate-900:hover,
+[data-theme="dark"] .hover\:bg-slate-900\/60:hover {
+  background-color: #292824 !important;
 }
 
 /* Light theme semantic adaptations (scoped strictly to [data-theme="light"]) */
