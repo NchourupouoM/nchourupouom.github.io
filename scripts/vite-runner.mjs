@@ -217,8 +217,10 @@ function buildApp() {
   fs.copyFileSync(cssOut, path.join(rootAssetsDir, 'index.css'));
   fs.copyFileSync(jsOut, path.join(rootAssetsDir, 'index.js'));
   fs.writeFileSync(path.join(rootDir, '.nojekyll'), '', 'utf8');
-  if (fs.existsSync(path.join(publicDir, 'favicon.svg'))) {
-    fs.copyFileSync(path.join(publicDir, 'favicon.svg'), path.join(rootDir, 'favicon.svg'));
+  for (const iconFile of ['favicon.svg', 'favicon.png', 'favicon.ico']) {
+    if (fs.existsSync(path.join(publicDir, iconFile))) {
+      fs.copyFileSync(path.join(publicDir, iconFile), path.join(rootDir, iconFile));
+    }
   }
   if (
     fs.existsSync(path.join(rootDir, 'images/prediction-action tsla.png')) &&
